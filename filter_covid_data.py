@@ -1,7 +1,6 @@
 """File to filter covid data"""
 
 import csv
-from pprint import pprint
 
 filtered_data = {}
 with open('covid_data.csv') as csv_file:
@@ -15,5 +14,6 @@ with open('covid_data.csv') as csv_file:
 
         filtered_data[date] += 1
 
-
-pprint(filtered_data)
+    f = open('filtered_covid_cases.csv', "w")
+    f.write(str(filtered_data))
+    f.close()

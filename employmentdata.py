@@ -18,4 +18,6 @@ with open('employment_data.csv') as f:
     for lst in content:
         new_dict[lst[0]] = lst[1:]
 
-    print(new_dict)
+    f = open('filtered_employment.csv', "w")
+    f.write(str(new_dict))
+    f.close()
