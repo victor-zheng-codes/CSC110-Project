@@ -14,10 +14,10 @@ with open('employment_data.csv') as f:
         new_lst.append(row)
 
     content = new_lst[0: 18]
-
+    file = open('filtered_employment_data.csv', 'w')
+    writer = csv.writer(file)
     for lst in content:
-        new_dict[lst[0]] = lst[1:]
-
-    f = open('filtered_employment.csv', "w")
-    f.write(str(new_dict))
-    f.close()
+        row = [lst[0], lst[1:]]
+        print(row)
+        writer.writerow(row)
+    file.close()
