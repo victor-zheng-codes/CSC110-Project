@@ -17,7 +17,7 @@ with open('employment_data.csv') as f:
     file = open('filtered_employment_data.csv', 'w')
     writer = csv.writer(file)
     for lst in content:
-        row = [lst[0], lst[1:]]
+        row = lst
         print(row)
         writer.writerow(row)
     file.close()
