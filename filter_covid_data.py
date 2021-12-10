@@ -7,6 +7,9 @@ with open('covid_data.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     next(csv_reader)
 
+    file = open('filtered_covid_data.csv', 'w')
+    writer = csv.writer(file)
+
     for row in csv_reader:
         date = row[1][0:7]
         if date not in filtered_data:
@@ -14,6 +17,7 @@ with open('covid_data.csv') as csv_file:
 
         filtered_data[date] += 1
 
-    f = open('filtered_covid_cases.csv', "w")
-    f.write(str(filtered_data))
-    f.close()
+    for date in filtered_data:
+        writer.writerow([date, filtered_data[date]])
+
+    file.close()
