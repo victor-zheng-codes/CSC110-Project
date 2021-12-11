@@ -13,12 +13,17 @@ with open('data/employment_data.csv') as f:
     # skip the first 13 lines of the code
     [next(reader, None) for item in range(11)]
 
-    f = open('data/employment_months.csv', 'w')
-    writer = csv.writer(f)
+    # f = open('data/employment_months.csv', 'w')
+    # writer = csv.writer(f)
+
+    # open filtered_employment_data.csv to write the filtered data
+    file = open('data/filtered_employment_data.csv', 'w')
+    writer = csv.writer(file)
 
     for row in reader:
-        writer.writerow(item for item in row[1:])
-        f.close()
+        items = [item for item in row[1:]]
+        items.insert(0, 'Industry')
+        writer.writerow(items)
         break
 
     next(reader, None)
@@ -30,9 +35,7 @@ with open('data/employment_data.csv') as f:
 
     # filter only the first 19 rows that we need
     content = row_list[0: 18]
-    # open filtered_employment_data.csv to write the filtered data
-    file = open('data/filtered_employment_data.csv', 'w')
-    writer = csv.writer(file)
+
     # iterate through each element in lst and write the content
     for lst in content:
         print(lst)
