@@ -25,6 +25,7 @@ with open('data/covid_data.csv') as csv_file:
         # increase the accumulator of covid cases for that month
         filtered_data[date] += 1
 
+    writer.writerow(('Date', 'Number of COVID cases'))
     # iterate through each date in and write to file the date and the number of covid cases
     for date in filtered_data:
         writer.writerow([date, filtered_data[date]])

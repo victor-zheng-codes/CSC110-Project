@@ -35,6 +35,8 @@ def add_employment_data() -> list[Employed]:
     with open('data/filtered_employment_data.csv') as f:
         # read the entire csv file
         reader = csv.reader(f, delimiter=',')
+        # skip the first line
+        next(reader, None)
         # iterate through each line in the reader
         for row in reader:
             # check if the line is not empty
@@ -52,11 +54,14 @@ def add_employment_data() -> list[Employed]:
 def add_covid_data() -> list[CovidData]:
     """Add covid data to a list containing CovidData objects read from filtered_covid_data.csv"""
     covid_data = []
+
     with open('data/filtered_covid_data.csv') as csv_file:
         # read the entire csv file
-        csv_reader = csv.reader(csv_file, delimiter=',')
+        reader = csv.reader(csv_file, delimiter=',')
+        # skip the first line
+        next(reader, None)
         # iterate through each line in the reader
-        for row in csv_reader:
+        for row in reader:
             # check if the row is not empty
             if row != []:
                 # append the covid_data to the CovidData data class
