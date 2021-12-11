@@ -10,9 +10,11 @@ class Employed:
     Instance Attributes:
         - industry: the industry (e.g., 'Agriculture')
         - employment: a list containing the number of employed in thousands
+        - date: a list containing the dates for the employment numbers (e.g., 'October 2020')
     """
     industry: str
     employment: list[float]
+    date: list[str]
 
 
 @dataclass
@@ -36,7 +38,9 @@ def add_employment_data() -> list[Employed]:
         # read the entire csv file
         reader = csv.reader(f, delimiter=',')
         # skip the first line
-        next(reader, None)
+        first_line = next(reader, None)
+        months = first_line[1:]
+        print(months)
         # iterate through each line in the reader
         for row in reader:
             # check if the line is not empty
@@ -46,7 +50,7 @@ def add_employment_data() -> list[Employed]:
                     # append to filter data with correct format
                     filter_data.append(float(row[i].replace(',', '')))
                 # add the Employed object to the employment list
-                employment_list.append(Employed(industry=row[0], employment=filter_data))
+                employment_list.append(Employed(industry=row[0], employment=filter_data, date=months))
 
     return employment_list
 
