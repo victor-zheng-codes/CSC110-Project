@@ -11,7 +11,18 @@ new_dict = {}
 with open('employment_data.csv') as f:
     reader = csv.reader(f, delimiter=',')
     # skip the first 13 lines of the code
-    [next(reader, None) for item in range(13)]
+    [next(reader, None) for item in range(11)]
+
+    f = open('employment_months.csv', 'w')
+    writer = csv.writer(f)
+
+    for row in reader:
+        writer.writerow(item for item in row[1:])
+        f.close()
+        break
+
+    next(reader, None)
+
     # iterate through each row in the reader
     for row in reader:
         # add each row to the row_list
