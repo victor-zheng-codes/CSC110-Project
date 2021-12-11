@@ -5,13 +5,13 @@ import csv
 
 filtered_data = {}
 # read the covid_data.csv file. This file is too large to submit or put onto GitHub.
-with open('covid_data.csv') as csv_file:
+with open('data/covid_data.csv') as csv_file:
     # read through each line in covid_data.csv
     csv_reader = csv.reader(csv_file, delimiter=',')
     # skip the first line with variable names
     next(csv_reader)
     # open filtered_covid_data.csv to write
-    file = open('filtered_covid_data.csv', 'w')
+    file = open('data/filtered_covid_data.csv', 'w')
     # initialize built in csv writer method to write to file
     writer = csv.writer(file)
     # iterate through each row in the file

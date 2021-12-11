@@ -8,10 +8,10 @@ pygame.display.set_caption('CO(VISION)')
 clock = pygame.time.Clock()
 
 # http://resources.finalsite.net/images/v1603987533/ellensburg/ixbajjxlqntul6ymrofc/COVID.jpg
-programIcon = pygame.image.load('COVID.jpg')
+programIcon = pygame.image.load('data/COVID.jpg')
 pygame.display.set_icon(programIcon)
 
-virusPic = pygame.image.load('virus.png')
+virusPic = pygame.image.load('data/virus.png')
 virusRect = virusPic.get_rect()
 
 font_name = pygame.font.match_font('dubai')
