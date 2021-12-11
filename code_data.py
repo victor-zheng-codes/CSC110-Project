@@ -32,7 +32,7 @@ def add_employment_data() -> list[Employed]:
     filtered_employment_data.csv
     """
     employment_list = []
-    with open('filtered_employment_data.csv') as f:
+    with open('data/filtered_employment_data.csv') as f:
         # read the entire csv file
         reader = csv.reader(f, delimiter=',')
         # iterate through each line in the reader
@@ -52,7 +52,7 @@ def add_employment_data() -> list[Employed]:
 def add_covid_data() -> list[CovidData]:
     """Add covid data to a list containing CovidData objects read from filtered_covid_data.csv"""
     covid_data = []
-    with open('filtered_covid_data.csv') as csv_file:
+    with open('data/filtered_covid_data.csv') as csv_file:
         # read the entire csv file
         csv_reader = csv.reader(csv_file, delimiter=',')
         # iterate through each line in the reader
@@ -63,4 +63,3 @@ def add_covid_data() -> list[CovidData]:
                 covid_data.append(CovidData(date=row[0], cases=int(row[1])))
 
     return covid_data
-

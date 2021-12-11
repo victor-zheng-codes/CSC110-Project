@@ -8,12 +8,12 @@ row_list = []
 new_dict = {}
 
 # open the employment data csv file
-with open('employment_data.csv') as f:
+with open('data/employment_data.csv') as f:
     reader = csv.reader(f, delimiter=',')
     # skip the first 13 lines of the code
     [next(reader, None) for item in range(11)]
 
-    f = open('employment_months.csv', 'w')
+    f = open('data/employment_months.csv', 'w')
     writer = csv.writer(f)
 
     for row in reader:
@@ -31,7 +31,7 @@ with open('employment_data.csv') as f:
     # filter only the first 19 rows that we need
     content = row_list[0: 18]
     # open filtered_employment_data.csv to write the filtered data
-    file = open('filtered_employment_data.csv', 'w')
+    file = open('data/filtered_employment_data.csv', 'w')
     writer = csv.writer(file)
     # iterate through each element in lst and write the content
     for lst in content:
