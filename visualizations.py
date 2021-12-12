@@ -69,6 +69,7 @@ class Visualization:
         cor = self.correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
         print(cor)
+        plt.show()
 
     def industry_covid_visualization(self, industry: str, start_date: str, end_date: str) -> None:
         """Display a double scatterplot showing the relationship between COVID and industry from the
@@ -92,13 +93,15 @@ class Visualization:
         plt.scatter(visualization_dates, covid_numbers, c='darkblue', label='Covid Cases')
         # find the best position to plot the legend
         plt.legend(loc='best')
+        plt.show()
 
     def add_linear_regression(self, m: float, b: float, start_x: float, end_x: float) -> None:
         """Adds a linear regression line to the graph between the two specified points"""
         y_0 = m * start_x + b
         y_1 = m * end_x + b
 
-        plt.plot([start_x, end_x], [y_0, y_1], label='linear regression line')
+        plt.plot([start_x, end_x], [y_0, y_1], label='linear regression line', c='red')
+        plt.show()
 
     def linear_regression(self, x_points: list[float], y_points: list[float]) -> tuple[float, float]:
         """Returns a tuple of two integers containing the formula for the linear regression line for the
