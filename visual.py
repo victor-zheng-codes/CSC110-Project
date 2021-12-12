@@ -41,7 +41,7 @@ class Visual:
     clock: pygame.time
     virus_pic: pygame.image
     virus_rect: pygame.Rect
-    font_name: pygame.font
+    font_name: str
 
     buttons: dict[str, Button]
 
@@ -49,7 +49,7 @@ class Visual:
         """Initializes the visual class and its variables, and starts up the program.
         """
         pygame.init()
-        self.font_name = pygame.font.match_font('dubai')
+        self.font_name = "M1PRegular-R3wv.ttf"
         self.dimension = (1600, 1000)
         w, h = self.dimension
         self.screen = pygame.display.set_mode((w, h))
@@ -61,10 +61,10 @@ class Visual:
         self.virus_pic = pygame.image.load('virus.png')
         self.virus_rect = self.virus_pic.get_rect()
 
-        small_button_width = 320
-        c1_x = w // 4  # column_1's x position
+        small_button_width = 400
+        c1_x = w // 4 - 50  # column_1's x position
         c2_x = w // 2  # column_2's x position
-        c3_x = w // 2 + w // 4  # column_3's x position
+        c3_x = w // 2 + w // 4 + 50  # column_3's x position
 
         self.buttons = {'back': Button((100, 50), (50, 25)),
                         'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
@@ -128,14 +128,14 @@ class Visual:
 
             self.screen.blit(self.virus_pic, self.virus_rect)
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment',
-                           70, (w // 2, h // 4))
+                           50, (w // 2, h // 4))
             self.draw_text(self.screen, 'How does  the  pandemic  impact  employment  in  Ontario?',
-                           50, (w // 2, h // 3))
+                           40, (w // 2, h // 3))
             self.draw_text(self.screen,
                            'Are  there  certain  industries  that  suffered or '
-                           'benefited more than others?', 50, (w // 2, h // 3 + 50))
-            self.buttons['individual'].draw(self.screen, "Individual Comparisons", 50)
-            self.buttons['all'].draw(self.screen, "All Comparisons", 50)
+                           'benefited more than others?', 40, (w // 2, h // 3 + 50))
+            self.buttons['individual'].draw(self.screen, "Individual Comparisons", 35)
+            self.buttons['all'].draw(self.screen, "All Comparisons", 35)
 
             self.virus_rect.x += x_velocity
             self.virus_rect.y += y_velocity
@@ -324,9 +324,9 @@ class Visual:
                            60, (w // 2, h // 4 + 70))
 
             self.buttons['Top Benefit'].draw(self.screen, "Top 5 Industries that benefited from "
-                                                          "COVID", 40)
+                                                          "COVID", 30)
             self.buttons['Top Suffer'].draw(self.screen, "Top 5 Industries that suffered from"
-                                                         " COVID", 40)
+                                                         " COVID", 30)
             self.buttons['back'].draw(self.screen, "Back", 20)
 
             pygame.display.update()  # Refreshes the display
