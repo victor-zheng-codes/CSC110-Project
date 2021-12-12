@@ -177,9 +177,14 @@ class Visual:
                 for industry in industries:
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                        plt.plot([1, 2, 3, 4])
-                        plt.ylabel('some numbers')
-                        plt.show()
+                        print("Begin Run")
+                        v = Visualization()
+                        v.display_individual_graphs(industry)
+                        v.industry_covid_visualization(industry)
+                        # plt.plot([1, 2, 3, 4])
+                        # plt.ylabel('some numbers')
+                        # plt.show()
+                        print("Ran Successfully")
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment'
                            'Impact on Individual Industries', 30, (w // 2, h // 12))
