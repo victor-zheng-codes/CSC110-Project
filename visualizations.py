@@ -20,8 +20,10 @@ class Visualization:
         employment_rates = []
         employment_months = []
         for employment_d in employment_data:
+            # check if the industry provided matches the first letter or matches it with a comma
             if employment_d.industry.split()[0] == industry or\
                     employment_d.industry.split()[0] == industry + ',':
+
                 employment_rates = employment_d.employment
                 employment_months = employment_d.date
 
