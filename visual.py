@@ -82,8 +82,8 @@ class Visual:
         w, h = self.dimension
         # Image spawns at a random position on the screen
         self.virus_rect.topleft = (random.randint(0, w // 2), random.randint(0, h // 2))
-        x_velocity = 10  # The speed of the image
-        y_velocity = 6
+        x_velocity = random.choice([-10, 10])  # The speed of the image
+        y_velocity = random.choice([-6, 6])
         while True:  # Infinite while loop
             self.screen.fill((255, 255, 255))  # Background colour of the screen
             mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
