@@ -2,17 +2,12 @@
 
 import matplotlib.pyplot as plt
 import code_data as cd
-import math
 
 
-# Assume we are given the industry
-def display_individual_graphs(industry: str, start_date: str, end_date: str) -> None:
-    """Display individual graph of COVID and industry relationship with linear regression
-
-    Preconditions:
-        - industry is an industry in the employment data
-        - start_date and end_date is within both of the covid and employment dates
-    """
+def get_visualization_data(industry: str, start_date: str, end_date: str) -> \
+        list[list[str], list[float], list[float]]:
+    """Return the visualization months, covid_numbers, and employment numbers
+     for the correct time period. """
 
     # get the filtered employment and covid data
     employment_data = cd.add_employment_data()
@@ -42,9 +37,23 @@ def display_individual_graphs(industry: str, start_date: str, end_date: str) -> 
     # calculate the covid numbers based on the correct index
     covid_numbers = covid_rates[covid_dates.index(start_date): covid_dates.index(end_date)]
 
+    return [visualization_period, employment_numbers, covid_numbers]
+
+
+# Assume we are given the industry
+def display_individual_graphs(industry: str, start_date: str, end_date: str) -> None:
+    """Display individual graph of COVID and industry relationship with linear regression
+
+    Preconditions:
+        - industry is an industry in the employment data
+        - start_date and end_date is within both of the covid and employment dates
+    """
+
+    _, employment_numbers, covid_numbers = get_visualization_data(industry, start_date, end_date)
+
     # code to visualize
     # set a window size of 10 inches by 5 inches
-    plt.figure(figsize=(10, 5))
+    plt.figure(figsize=(12, 6))
 
     # set customizations for design of our visualization
     font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
@@ -56,48 +65,32 @@ def display_individual_graphs(industry: str, start_date: str, end_date: str) -> 
 
     m, b = linear_regression(x_points=covid_numbers, y_points=employment_numbers)
     add_linear_regression(m, b, min(covid_numbers), max(covid_numbers))
-    correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
+    cor = correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
+
+    print(cor)
 
 
-def industry_covid_visualization(industry: str) -> None:
-    """Display a double scatterplot showing the relationship between COVID and industry by each
-     month so far
+def industry_covid_visualization(industry: str, start_date: str, end_date: str) -> None:
+    """Display a double scatterplot showing the relationship between COVID and industry from the
+    start to the end date
     """
-    employment_data = cd.add_employment_data()
-    covid_data = cd.add_covid_data()
-    print(len(covid_data))
+    visualization_dates, employment_numbers, covid_numbers = get_visualization_data(industry, start_date, end_date)
 
-    employment_rates = []
-    for employment_d in employment_data:
-        if employment_d.industry == industry:
-            employment_rates = employment_d.employment[3:]
-
-    # append dates from the covid data
-    covid_dates = []
-    covid_cases = []
-
-    # only use the 2 to the last industry
-    for i in range(2, len(covid_data) - 1):
-        covid_dates.append(covid_data[i].date)
-        # divide by 1000 to match the employment relationship
-        covid_cases.append(covid_data[i].cases / 1000)
-
-    # set a window size of 10 inches by 5 inches
-    plt.figure(figsize=(10, 6))
+    # set a window size of 10 inches by 6 inches
+    plt.figure(figsize=(12, 6))
 
     # set customizations for design of our visualization
-    font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 20}
-    plt.title(f"Association of Covid Cases and {industry} industry over time", **font)
-    plt.xlabel("Month-Year")
+    font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
+    plt.title(f"Association of Covid Cases and {industry} industry from {start_date} to {end_date}", **font)
+    plt.xlabel("Year-Month")
     plt.ylabel(f"COVID & {industry} industry (x1000 people)")
 
+    # rotate the x ticks so that they are visible
     plt.xticks(rotation=45)
 
-    # plt.gca().legend(('y0','y1'))
-    # problem!!! dates will be wrong!
-    # TODO: fix employment month which is incorrectly matched with covid months
-    plt.scatter(covid_dates, employment_rates, c='darkgreen', label='Employment')
-    plt.scatter(covid_dates, covid_cases, c='darkblue', label='Covid Cases')
+    plt.scatter(visualization_dates, employment_numbers, c='darkgreen', label='Employment')
+    plt.scatter(visualization_dates, covid_numbers, c='darkblue', label='Covid Cases')
+    # find the best position to plot the legend
     plt.legend(loc='best')
 
 
@@ -216,11 +209,10 @@ def correlation_calculator(x_points: list[float], y_points: list[float]) -> floa
 if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
-    display_individual_graphs("Agriculture", '2020-01', '2021-05')
-    # display_individual_graphs("Utilities")
+    display_individual_graphs("Utilities", '2020-01', '2021-05')
 
     # testing code for industry_covid_visualization()
-    # industry_covid_visualization("Agriculture")
+    # industry_covid_visualization("Utilities", '2020-01', '2021-05')
 
     # python_ta.check_all(config={
     #     'allowed-io': ['industry_covid_visualization', 'display_individual_graphs'],
@@ -228,5 +220,3 @@ if __name__ == "__main__":
     #     'max-line-length': 100,
     #     'disable': ['R1705', 'C0200']
     # })
-
-    # industry_covid_visualization("Utilities")
