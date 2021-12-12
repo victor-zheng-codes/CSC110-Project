@@ -15,8 +15,8 @@ expressly prohibited.
 This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
 """
 from sys import exit
-import pygame
 import random
+import pygame
 
 from button import Button
 
@@ -31,8 +31,7 @@ class Visual:
         - virus_pic: a pygame image of our icon
         - virus_rect: the pygame size of our icon
         - font_name: the name of our pygame font
-        - start: an interactive button to start an event
-        - quit: an interactive button to end an event
+        - buttons: a list holding all the button
 
     Representation Invariants:
         - all(num >= 0 for num in self.dimensions)
@@ -44,27 +43,26 @@ class Visual:
     virus_rect: pygame.Rect
     font_name: pygame.font
 
-    start: Button
-    quit: Button
+    buttons: dict[str, Button]
 
     def __init__(self) -> None:
         """Initializes the visual class and its variables, and starts up the program.
         """
         pygame.init()
-        self.font_name = pygame.font.match_font('dubai')  # Sets up the font
-        self.dimension = (1600, 1000)  # Sets the dimension for the screen (width, height)
+        self.font_name = pygame.font.match_font('dubai')
+        self.dimension = (1600, 1000)
         w, h = self.dimension
-        self.screen = pygame.display.set_mode((w, h))  # Sets the screens (width, height)
+        self.screen = pygame.display.set_mode((w, h))
 
-        pygame.display.set_caption('CO(VISION)')  # The title of our program
+        pygame.display.set_caption('CO(VISION)')
         self.clock = pygame.time.Clock()
         # http://resources.finalsite.net/images/v1603987533/ellensburg/ixbajjxlqntul6ymrofc/COVID.jpg
-        pygame.display.set_icon(pygame.image.load('COVID.jpg'))  # Displays an image of chosen icon
+        pygame.display.set_icon(pygame.image.load('COVID.jpg'))
         self.virus_pic = pygame.image.load('virus.png')
         self.virus_rect = self.virus_pic.get_rect()
-
-        self.start = Button((500, 150), (w // 2 - 50, h // 2 + 50))  # (width, height) and (x, y)
-        self.quit = Button((200, 200), (w // 2 - 50, h // 2))
+        self.buttons = {'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
+                        'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
+                        'quit': Button((200, 200), (w // 2 - 50, h // 2))}
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
                   dimension: tuple[int, int]) -> None:
@@ -84,17 +82,20 @@ class Visual:
         self.virus_rect.topleft = (random.randint(0, w // 2), random.randint(0, h // 2))
         x_velocity = random.choice([-10, 10])  # The speed of the image
         y_velocity = random.choice([-6, 6])
-        while True:  # Infinite while loop
-            self.screen.fill((255, 255, 255))  # Background colour of the screen
-            mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
+        while True:
+            self.screen.fill((255, 255, 255))
+            mouse = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-                if self.start.mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                if self.buttons['individual'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    self.main()
+                if self.buttons['all'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                     self.main()
 
-            self.screen.blit(self.virus_pic, self.virus_rect)  # Drawing the screen with text
+            self.screen.blit(self.virus_pic, self.virus_rect)
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment',
                            70, (w // 2, h // 4))
             self.draw_text(self.screen, 'How does  the  pandemic  impact  employment  in  Ontario?',
@@ -102,9 +103,10 @@ class Visual:
             self.draw_text(self.screen,
                            'Are  there  certain  industries  that  suffered or '
                            'benefited more than others?', 50, (w // 2, h // 3 + 50))
-            self.start.draw(self.screen, "Individual Comparison", 50)
+            self.buttons['individual'].draw(self.screen, "Individual Comparisons", 50)
+            self.buttons['all'].draw(self.screen, "All Comparisons", 50)
 
-            self.virus_rect.x += x_velocity  # Moving the image across the screen
+            self.virus_rect.x += x_velocity
             self.virus_rect.y += y_velocity
 
             # Changes image direction if the image bumps into the border of the screen
@@ -123,18 +125,18 @@ class Visual:
     def main(self) -> None:
         """The main page of the program
         """
-        while True:
-            self.screen.fill((0, 0, 0))  # Covers up anything from the start menu
+        while True:  # Infinite while loop
+            self.screen.fill((255, 255, 255))  # Background colour of the screen
             mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     exit()
-                if self.quit.mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                if self.buttons['quit'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
 
-            self.quit.draw(self.screen, 'bye', 30)
-            pygame.display.update()  # Refreshes the display
+            self.buttons['quit'].draw(self.screen, 'bye', 30)
+            pygame.display.update()
             self.clock.tick(50)
 
 
@@ -147,7 +149,7 @@ if __name__ == '__main__':
 
     python_ta.check_all(config={
         'allowed-io': ['run_example'],
-        'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys'],
+        'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random'],
         'max-line-length': 100,
         'disable': ['R1705', 'C0200']
     })
