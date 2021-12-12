@@ -18,5 +18,5 @@ This file is Copyright (c) 2021 ...
 
 if __name__ == '__main__':
     from visual import Visual
-
     program = Visual()
+    program.start_menu()

@@ -52,7 +52,7 @@ class Button:
         font = pygame.font.Font(self.font_name, size)
         text_surface = font.render(text, True, (0, 0, 0))
         text_rect = text_surface.get_rect(center=(x, y))
-        pygame.draw.rect(surface, pygame.Colour(self.colour), rect)
+        pygame.draw.rect(surface, pygame.Color(self.colour), rect)
         surface.blit(text_surface, text_rect)
 
     def get_x_pos(self) -> tuple[int, int]:
