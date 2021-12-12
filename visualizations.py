@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 import code_data as cd
-
+import math
 
 # Assume we are given the industry
 def display_individual_graphs(industry: str) -> None:
@@ -82,6 +82,51 @@ def industry_covid_visualization(industry: str) -> None:
     plt.legend(loc='best')
 
 
+def linear_regression(x_points: list[int], y_points: list[int]) -> tuple[float, float]:
+    """Returns a tuple of two integers containing the formula for the linear regression line for the
+     given points using the least least squares regression line formula. The first point is m, the
+     slope of the line. The second point is b, the intercept of the line.
+
+    This helps us form an equaltion using the formula y = mx + b
+
+    slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
+    source: https://www.mathsisfun.com/data/least-squares-regression.html
+
+    Preconditions:
+        - length of y_points and x_points are the same
+
+    >>> x_points = [2,3,5,7,9]
+    >>> y_points = [4,5,7,10,15]
+    >>> m, b = linear_regression(x_points, y_points)
+    >>> assert round(m, 3) == 1.518
+    >>> assert round(b, 3) == 0.305
+    """
+    n = len(x_points)
+
+    sum_x = 0
+    sum_x_squared = 0
+    # Calculate the sum for x points and x squared points
+    for val in x_points:
+        sum_x += val
+        sum_x_squared += val ** 2
+    # Calculate the sum for y points
+    sum_y = 0
+    for val in y_points:
+        sum_y += val
+    # Calculate the sum for x points times y points
+    sum_xy = 0
+
+    for i in range(n):
+        sum_xy += x_points[i] * y_points[i]
+
+    print(sum_x, sum_y, sum_x_squared, sum_xy)
+
+    m = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x ** 2)
+    b = (sum_y - m * sum_x)/n
+
+    return m, b
+
+
 if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
@@ -91,11 +136,11 @@ if __name__ == "__main__":
     # testing code for industry_covid_visualization()
     # industry_covid_visualization("Agriculture")
 
-    python_ta.check_all(config={
-        'allowed-io': ['industry_covid_visualization', 'display_individual_graphs'],
-        'extra-imports': ['matplotlib.pyplot', 'code_data'],
-        'max-line-length': 100,
-        'disable': ['R1705', 'C0200']
-    })
+    # python_ta.check_all(config={
+    #     'allowed-io': ['industry_covid_visualization', 'display_individual_graphs'],
+    #     'extra-imports': ['matplotlib.pyplot', 'code_data'],
+    #     'max-line-length': 100,
+    #     'disable': ['R1705', 'C0200']
+    # })
 
     # industry_covid_visualization("Utilities")
