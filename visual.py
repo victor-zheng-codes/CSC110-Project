@@ -1,18 +1,14 @@
-"""CSC110 Fall 2021 Final Project, Visual Class
-
-File Description
-===============================
-This file contains the Visual Class for our final project in CSC110. It visualizes our computations
-and uses pygame to create an interactive pygame application to access information on our data.
+"""CSC110 Fall 2021 Final Project Visuals
 
 Copyright and Usage Information
 ===============================
-This file is provided solely for the personal and private use of students, TA, and professors
-within the CSC110 at the University of Toronto St. George campus. All forms of
+
+This file is provided solely for the personal and private use of TA and professors
+teaching CSC110 at the University of Toronto St. George campus. All forms of
 distribution of this code, whether as given or with any changes, are
 expressly prohibited.
 
-This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
+This file is Copyright (c) 2021 ...
 """
 from sys import exit
 import pygame
@@ -23,16 +19,6 @@ from button import Button
 
 class Visual:
     """This visualizes the product of our computation
-
-    Instance Attributes:
-        - dimension: the dimension of the screen in (width, length)
-        - screen: the pygame screen to display our pygame visuals
-        - clock: the pygame time to run code
-        - virus_pic: a pygame image of our icon
-        - virus_rect: the pygame size of our icon
-        - font_name: the name of our pygame font
-        - start: an interactive button to start an event
-        - quit: an interactive button to end an event
     """
     dimension: tuple[int, int]
     screen: pygame.display
