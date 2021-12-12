@@ -81,7 +81,7 @@ class Visual:
         """
         w, h = self.dimension
         # Image spawns at a random position on the screen
-        self.virus_rect.top_left = (random.randint(0, w // 2), random.randint(0, h // 2))
+        self.virus_rect.topleft = (random.randint(0, w // 2), random.randint(0, h // 2))
         x_velocity = 10  # The speed of the image
         y_velocity = 6
         while True:  # Infinite while loop
