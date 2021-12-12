@@ -6,46 +6,57 @@ import math
 
 
 # Assume we are given the industry
-def display_individual_graphs(industry: str) -> None:
-    """Display individual graph of COVID and industry relationship
+def display_individual_graphs(industry: str, start_date: str, end_date: str) -> None:
+    """Display individual graph of COVID and industry relationship with linear regression
 
     Preconditions:
         - industry is an industry in the employment data
+        - start_date and end_date is within both of the covid and employment dates
     """
+
+    # get the filtered employment and covid data
     employment_data = cd.add_employment_data()
     covid_data = cd.add_covid_data()
-    print(len(covid_data))
 
+    # take all employment rates and dates for the correct industry
     employment_rates = []
+    employment_months = []
     for employment_d in employment_data:
         if employment_d.industry == industry:
-            employment_rates = employment_d.employment[3:]
+            employment_rates = employment_d.employment
+            employment_months = employment_d.date
 
-    # append dates from the covid data
+    # take all covid dates and cases from the covid data
     covid_dates = []
-    covid_cases = []
-
+    covid_rates = []
     # only use the 2 to the last industry
     for i in range(2, len(covid_data) - 1):
         covid_dates.append(covid_data[i].date)
         # divide by 1000 to match the employment relationship
-        covid_cases.append(covid_data[i].cases / 1000)
+        covid_rates.append(covid_data[i].cases / 1000)
 
+    # visualization period will be the same for covid and employment datasets
+    visualization_period = covid_dates[covid_dates.index(start_date): covid_dates.index(end_date)]
+    # calculate the employment numbers based on the correct index
+    employment_numbers = employment_rates[employment_months.index(start_date): employment_months.index(end_date)]
+    # calculate the covid numbers based on the correct index
+    covid_numbers = covid_rates[covid_dates.index(start_date): covid_dates.index(end_date)]
+
+    # code to visualize
     # set a window size of 10 inches by 5 inches
     plt.figure(figsize=(10, 5))
 
     # set customizations for design of our visualization
-    font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 20}
-    plt.title(f"Association of Covid Cases and {industry} industry", **font)
+    font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
+    plt.title(f"Association of Covid Cases and {industry} industry from {start_date} to {end_date}", **font)
     plt.xlabel("Covid Cases (x1000 people)")
     plt.ylabel(f"Employment Data for {industry} industry (x1000 people)")
 
-    plt.scatter(covid_cases, employment_rates, c='darkblue')
+    plt.scatter(covid_numbers, employment_numbers, c='darkblue')
 
-    # just for testing at the moment with incorrect employment points
-    # TODO: fix employment month which is incorrectly matched with covid months
-    m, b = linear_regression(x_points=covid_cases, y_points=employment_rates[0:len(covid_cases)])
-    add_linear_regression(m, b, min(covid_cases), max(covid_cases))
+    m, b = linear_regression(x_points=covid_numbers, y_points=employment_numbers)
+    add_linear_regression(m, b, min(covid_numbers), max(covid_numbers))
+    correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
 
 def industry_covid_visualization(industry: str) -> None:
@@ -205,7 +216,7 @@ def correlation_calculator(x_points: list[float], y_points: list[float]) -> floa
 if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
-    display_individual_graphs("Agriculture")
+    display_individual_graphs("Agriculture", '2020-01', '2021-05')
     # display_individual_graphs("Utilities")
 
     # testing code for industry_covid_visualization()
