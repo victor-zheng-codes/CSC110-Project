@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import code_data as cd
 import math
 
+
 # Assume we are given the industry
 def display_individual_graphs(industry: str) -> None:
     """Display individual graph of COVID and industry relationship
@@ -41,6 +42,11 @@ def display_individual_graphs(industry: str) -> None:
 
     plt.scatter(covid_cases, employment_rates, c='darkblue')
 
+    # just for testing at the moment with incorrect employment points
+    # TODO: fix employment month which is incorrectly matched with covid months
+    m, b = linear_regression(x_points=covid_cases, y_points=employment_rates[0:len(covid_cases)])
+    add_linear_regression(m, b, min(covid_cases), max(covid_cases))
+
 
 def industry_covid_visualization(industry: str) -> None:
     """Display a double scatterplot showing the relationship between COVID and industry by each
@@ -77,12 +83,22 @@ def industry_covid_visualization(industry: str) -> None:
     plt.xticks(rotation=45)
 
     # plt.gca().legend(('y0','y1'))
+    # problem!!! dates will be wrong!
+    # TODO: fix employment month which is incorrectly matched with covid months
     plt.scatter(covid_dates, employment_rates, c='darkgreen', label='Employment')
     plt.scatter(covid_dates, covid_cases, c='darkblue', label='Covid Cases')
     plt.legend(loc='best')
 
 
-def linear_regression(x_points: list[int], y_points: list[int]) -> tuple[float, float]:
+def add_linear_regression(m: float, b: float, start_x: float, end_x: float) -> None:
+    """Adds a linear regression line to the graph between the two specified points"""
+    y_0 = m * start_x + b
+    y_1 = m * end_x + b
+
+    plt.plot([start_x, end_x], [y_0, y_1], label='linear regression line')
+
+
+def linear_regression(x_points: list[float], y_points: list[float]) -> tuple[float, float]:
     """Returns a tuple of two integers containing the formula for the linear regression line for the
      given points using the least least squares regression line formula. The first point is m, the
      slope of the line. The second point is b, the intercept of the line.
@@ -130,7 +146,7 @@ def linear_regression(x_points: list[int], y_points: list[int]) -> tuple[float, 
 if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
-    # display_individual_graphs("Agriculture")
+    display_individual_graphs("Agriculture")
     # display_individual_graphs("Utilities")
 
     # testing code for industry_covid_visualization()
