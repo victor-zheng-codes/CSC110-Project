@@ -18,6 +18,7 @@ from sys import exit
 import random
 import pygame
 
+from visualizations import Visualization
 from button import Button
 
 
@@ -175,9 +176,9 @@ class Visual:
                 for industry in industries:
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                        # TODO
+                        # v = Visualization()
+                        # v.display_individual_graphs()
                         pass
-
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment'
                            'Impact on Individual Industries', 30, (w // 2, h // 12))
@@ -238,7 +239,6 @@ class Visual:
 
                 if self.buttons['Top Benefit'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
                     pass
                 if self.buttons['Top Suffer'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
