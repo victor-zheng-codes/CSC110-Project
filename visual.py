@@ -61,12 +61,13 @@ class Visual:
         self.virus_pic = pygame.image.load('virus.png')
         self.virus_rect = self.virus_pic.get_rect()
 
-        small_button_width = 300
+        small_button_width = 320
         c1_x = w // 4  # column_1's x position
         c2_x = w // 2  # column_2's x position
         c3_x = w // 2 + w // 4  # column_3's x position
 
-        self.buttons = {'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
+        self.buttons = {'back': Button((100, 50), (50, 25)),
+                        'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
 
                         'Total': Button((small_button_width, 100), (c1_x, h // 5)),
@@ -88,7 +89,10 @@ class Visual:
                         'Health': Button((small_button_width, 100), (c3_x, h // 5 + 250)),
                         'Information': Button((small_button_width, 100), (c3_x, h // 5 + 375)),
                         'Accommodation': Button((small_button_width, 100), (c3_x, h // 5 + 500)),
-                        'Other': Button((small_button_width, 100), (c3_x, h // 5 + 625))
+                        'Other': Button((small_button_width, 100), (c3_x, h // 5 + 625)),
+
+                        'Top Benefit': Button((750, 150), (w // 2 - 50, h // 2 + 50)),
+                        'Top Suffer': Button((750, 150), (w // 2 - 50, h // 2 + 250))
                         }
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
@@ -120,7 +124,7 @@ class Visual:
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.individual()
                 if self.buttons['all'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    self.individual()
+                    self.all()
 
             self.screen.blit(self.virus_pic, self.virus_rect)
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment',
@@ -152,11 +156,15 @@ class Visual:
     def individual(self) -> None:
         """The main page of the program
         """
+        w, h = self.dimension
         while True:  # Infinite while loop
             self.screen.fill((255, 255, 255))  # Background colour of the screen
             mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.start_menu()
+                if self.buttons['back'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
                 if self.buttons['Total'].mouse_hover(
                         mouse) and event.type == pygame.MOUSEBUTTONDOWN:
@@ -243,6 +251,10 @@ class Visual:
                     # TODO
                     pass
 
+            self.draw_text(self.screen,
+                           'CO(VISION): COVID-19’s Impact on employment'
+                           'Impact on Individual Industries', 30, (w // 2, h // 12))
+
             # Display the buttons
 
             # Column 1
@@ -276,7 +288,48 @@ class Visual:
             self.buttons['Accommodation'].draw(self.screen, 'Accommodation and food services', 15)
             self.buttons['Other'].draw(self.screen, 'Other services (except public administration)',
                                        15)
+
+            self.buttons['back'].draw(self.screen, "Back", 20)
             pygame.display.update()
+            self.clock.tick(50)
+
+    def all(self) -> None:
+        """The all menu of the program
+        """
+        w, h = self.dimension
+
+        while True:
+            self.screen.fill((255, 255, 255))
+            mouse = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
+                if self.buttons['back'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    self.start_menu()
+
+                if self.buttons['Top Benefit'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+                if self.buttons['Top Suffer'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+            self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
+                           60, (w // 2, h // 4))
+            self.draw_text(self.screen, 'Impact on all industries',
+                           60, (w // 2, h // 4 + 70))
+
+            self.buttons['Top Benefit'].draw(self.screen, "Top 5 Industries that benefited from "
+                                                          "COVID", 40)
+            self.buttons['Top Suffer'].draw(self.screen, "Top 5 Industries that suffered from"
+                                                         " COVID", 40)
+            self.buttons['back'].draw(self.screen, "Back", 20)
+
+            pygame.display.update()  # Refreshes the display
             self.clock.tick(50)
 
 
