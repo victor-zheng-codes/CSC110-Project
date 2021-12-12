@@ -20,14 +20,28 @@ with open('employment_data.csv') as f:
     file = open('filtered_employment_data.csv', 'w')
     writer = csv.writer(file)
 
-    for row in reader:
-        # add a csv header with all industries
-        items = [item for item in row[1:]]
-        # insert industry at the start of the list
-        items.insert(0, 'Industry')
-        writer.writerow(items)
-        print(items)
-        break
+    # convert the employment data month year to match the covid data. (October 2019 -> 2019-19)
+    calendar = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                'November', 'December']
+
+    header_row = next(reader)
+    # add a csv header with all months
+    new_cal = []
+    items = [item for item in header_row[1:]]
+    print(items)
+
+    for item in items:
+        for month in calendar:
+            m, y = item.split()
+            if month == m and calendar.index(m) < 9:
+                new_cal.append(y + '-0' + str(calendar.index(m) + 1))
+            elif month == m:
+                new_cal.append(y + '-' + str(calendar.index(m) + 1))
+
+    print(new_cal)
+    # insert industry at the start of the list
+    new_cal.insert(0, 'Industry')
+    writer.writerow(new_cal)
 
     next(reader, None)
 
