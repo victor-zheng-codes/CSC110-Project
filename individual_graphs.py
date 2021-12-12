@@ -1,3 +1,5 @@
+"""File to visualize code through matplotlib"""
+
 import matplotlib.pyplot as plt
 import code_data as cd
 
@@ -41,7 +43,8 @@ def display_individual_graphs(industry: str) -> None:
 
 
 def industry_covid_visualization(industry: str) -> None:
-    """Display a double scatterplot showing the relationship between COVID and industry by each month so far
+    """Display a double scatterplot showing the relationship between COVID and industry by each
+     month so far
     """
     employment_data = cd.add_employment_data()
     covid_data = cd.add_covid_data()
@@ -80,10 +83,19 @@ def industry_covid_visualization(industry: str) -> None:
 
 
 if __name__ == "__main__":
+    import python_ta
     # test code for display_individual_graphs()
     # display_individual_graphs("Agriculture")
     # display_individual_graphs("Utilities")
 
     # testing code for industry_covid_visualization()
     # industry_covid_visualization("Agriculture")
-    industry_covid_visualization("Utilities")
+
+    python_ta.check_all(config={
+        'allowed-io': ['industry_covid_visualization', 'display_individual_graphs'],
+        'extra-imports': ['matplotlib.pyplot', 'code_data'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
+
+    # industry_covid_visualization("Utilities")
