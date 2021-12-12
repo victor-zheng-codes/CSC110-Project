@@ -10,7 +10,8 @@ class Visualization:
     def get_visualization_data(self, industry: str, start_date='2020-01', end_date='2021-11') -> \
             list[list[str], list[float], list[float]]:
         """Return the visualization months, covid_numbers, and employment numbers
-         for the correct time period. """
+        for the correct time period. Time period is from Jan 2020 to Nov 2021 if it is not provided
+        """
 
         # get the filtered employment and covid data
         employment_data = cd.add_employment_data()
