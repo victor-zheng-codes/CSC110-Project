@@ -7,7 +7,7 @@ import code_data as cd
 class Visualization:
     """Class for visualizations"""
 
-    def get_visualization_data(self, industry: str, start_date: str, end_date: str) -> \
+    def get_visualization_data(self, industry: str, start_date='2020-01', end_date='2021-11') -> \
             list[list[str], list[float], list[float]]:
         """Return the visualization months, covid_numbers, and employment numbers
          for the correct time period. """
@@ -20,7 +20,8 @@ class Visualization:
         employment_rates = []
         employment_months = []
         for employment_d in employment_data:
-            if employment_d.industry == industry:
+            if employment_d.industry.split()[0] == industry or\
+                    employment_d.industry.split()[0] == industry + ',':
                 employment_rates = employment_d.employment
                 employment_months = employment_d.date
 
@@ -42,7 +43,7 @@ class Visualization:
 
         return [visualization_period, employment_numbers, covid_numbers]
 
-    def display_individual_graphs(self, industry: str, start_date: str, end_date: str) -> None:
+    def display_individual_graphs(self, industry: str, start_date='2020-01', end_date='2021-11') -> None:
         """Display individual graph of COVID and industry relationship with linear regression
 
         Preconditions:
@@ -71,7 +72,7 @@ class Visualization:
         print(cor)
         plt.show()
 
-    def industry_covid_visualization(self, industry: str, start_date: str, end_date: str) -> None:
+    def industry_covid_visualization(self, industry: str, start_date='2020-01', end_date='2021-11') -> None:
         """Display a double scatterplot showing the relationship between COVID and industry from the
         start to the end date
         """
@@ -210,7 +211,7 @@ if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
     v = Visualization()
-    v.display_individual_graphs("Utilities", '2020-01', '2021-05')
+    v.display_individual_graphs("Utilities")
 
     # testing code for industry_covid_visualization()
     # industry_covid_visualization("Utilities", '2020-01', '2021-05')
