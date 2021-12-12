@@ -166,90 +166,17 @@ class Visual:
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
-                if self.buttons['Total'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-                if self.buttons['Goods'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-                if self.buttons['Agriculture'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-                if self.buttons['Forestry'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-                if self.buttons['Utilities'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-                if self.buttons['Construction'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
 
-                if self.buttons['Manufacturing'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Services'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Wholesale'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Transportation'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Finance'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Professional'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Business'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Educational'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Health'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Information'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Accommodation'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
-
-                if self.buttons['Other'].mouse_hover(
-                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
+                industries = ['Total', 'Goods', 'Agriculture', 'Forestry', 'Utilities',
+                              'Construction', 'Manufacturing', 'Services', 'Wholesale',
+                              'Transportation', 'Finance', 'Professional', 'Business',
+                              'Educational', 'Health', 'Information', 'Accommodation',
+                              'Other']
+                for industry in industries:
+                    if self.buttons[industry].mouse_hover(
+                            mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                        # TODO
+                        pass
 
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment'

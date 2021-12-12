@@ -100,5 +100,5 @@ if __name__ == '__main__':
         'allowed-io': ['run_example'],
         'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys'],
         'max-line-length': 100,
-        'disable': ['R1705', 'C0200', 'R0902']
+        'disable': ['R1705', 'C0200']
     })
