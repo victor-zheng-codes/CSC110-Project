@@ -11,7 +11,7 @@ with open('data/covid_data.csv') as csv_file:
     # skip the first line with variable names
     next(csv_reader)
     # open filtered_covid_data.csv to write
-    file = open('data/filtered_covid_data.csv', 'w')
+    file = open('filtered_covid_data.csv', 'w')
     # initialize built in csv writer method to write to file
     writer = csv.writer(file)
     # iterate through each row in the file

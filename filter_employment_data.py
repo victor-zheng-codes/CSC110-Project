@@ -8,7 +8,7 @@ row_list = []
 new_dict = {}
 
 # open the employment data csv file
-with open('data/employment_data.csv') as f:
+with open('employment_data.csv') as f:
     reader = csv.reader(f, delimiter=',')
     # skip the first 13 lines of the code
     [next(reader, None) for item in range(11)]
@@ -17,7 +17,7 @@ with open('data/employment_data.csv') as f:
     # writer = csv.writer(f)
 
     # open filtered_employment_data.csv to write the filtered data
-    file = open('data/filtered_employment_data.csv', 'w')
+    file = open('filtered_employment_data.csv', 'w')
     writer = csv.writer(file)
 
     for row in reader:
