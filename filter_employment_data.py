@@ -46,6 +46,11 @@ with open('employment_data.csv') as f:
             list_el.pop()
             lst[0] = ' '.join(list_el)
 
+        # for some reason, some industries have more than 1 trailing digit
+        if list_el[-1].isnumeric():
+            list_el.pop()
+            lst[0] = ' '.join(list_el)
+
         print(lst)
         writer.writerow(lst)
 
