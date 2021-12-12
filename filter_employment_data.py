@@ -21,16 +21,18 @@ with open('employment_data.csv') as f:
     writer = csv.writer(file)
 
     for row in reader:
+        # add a csv header with all industries
         items = [item for item in row[1:]]
+        # insert industry at the start of the list
         items.insert(0, 'Industry')
         writer.writerow(items)
+        print(items)
         break
 
     next(reader, None)
 
     # iterate through each row in the reader
     for row in reader:
-        # add each row to the row_list
         row_list.append(row)
 
     # filter only the first 19 rows that we need
@@ -38,6 +40,12 @@ with open('employment_data.csv') as f:
 
     # iterate through each element in lst and write the content
     for lst in content:
+        # remove numeric numbers at the end
+        list_el = lst[0].split()
+        if list_el[-1].isnumeric():
+            list_el.pop()
+            lst[0] = ' '.join(list_el)
+
         print(lst)
         writer.writerow(lst)
 
