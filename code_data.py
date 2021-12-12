@@ -10,7 +10,7 @@ class Employed:
     Instance Attributes:
         - industry: the industry (e.g., 'Agriculture')
         - employment: a list containing the number of employed in thousands
-        - date: a list containing the dates for the employment numbers (e.g., 'October 2020')
+        - date: a list containing the dates for the employment numbers (e.g., '2020-10')
     """
     industry: str
     employment: list[float]
