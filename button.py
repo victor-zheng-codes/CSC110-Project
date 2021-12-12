@@ -1,11 +1,34 @@
+"""CSC110 Fall 2021 Final Project, Button Class
+
+File Description
+===============================
+This file contains the Button Class for our final project in CSC110. It creates buttons, allowing
+the user to interact and navigate (see visual.py) our pygame application to access data.
+
+Copyright and Usage Information
+===============================
+This file is provided solely for the personal and private use of students, TA, and professors
+within the CSC110 at the University of Toronto St. George campus. All forms of
+distribution of this code, whether as given or with any changes, are
+expressly prohibited.
+
+This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
+"""
 import pygame
 
 
 class Button:
     """The button class
+
+    Instance Attributes:
+        - colours: a list of rgb colour codes
+        - colour: tuple[int, int, int]
+        - dimension: the dimension of the screen in (width, length)
+        - position: tuple[int, int]
+        - font_name: pygame.font
     """
-    colors: list[tuple[int, int, int]]
-    color: tuple[int, int, int]
+    colours: list[tuple[int, int, int]]
+    colour: tuple[int, int, int]
     dimension: tuple[int, int]
     position: tuple[int, int]
     font_name: pygame.font
@@ -13,8 +36,8 @@ class Button:
     def __init__(self, dimension: tuple[int, int], position: tuple[int, int]) -> None:
         """Initialize the variables
         """
-        self.colors = [(240, 240, 240), (200, 200, 200)]
-        self.color = self.colors[0]
+        self.colours = [(240, 240, 240), (200, 200, 200)]
+        self.colour = self.colours[0]
         self.dimension = dimension
         self.position = position
         self.font_name = pygame.font.match_font('dubai')
@@ -29,7 +52,7 @@ class Button:
         font = pygame.font.Font(self.font_name, size)
         text_surface = font.render(text, True, (0, 0, 0))
         text_rect = text_surface.get_rect(center=(x, y))
-        pygame.draw.rect(surface, pygame.Color(self.color), rect)
+        pygame.draw.rect(surface, pygame.Colour(self.colour), rect)
         surface.blit(text_surface, text_rect)
 
     def get_x_pos(self) -> tuple[int, int]:
@@ -49,10 +72,10 @@ class Button:
         """
         if self.get_x_pos()[0] <= mouse[0] <= self.get_x_pos()[1] and \
                 self.get_y_pos()[0] <= mouse[1] <= self.get_y_pos()[1]:
-            self.color = self.colors[1]
+            self.colour = self.colours[1]
             return True
         else:
-            self.color = self.colors[0]
+            self.colour = self.colours[0]
             return False
 
 
