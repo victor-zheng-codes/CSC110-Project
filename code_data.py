@@ -50,7 +50,9 @@ def add_employment_data() -> list[Employed]:
                     # append to filter data with correct format
                     filter_data.append(float(row[i].replace(',', '')))
                 # add the Employed object to the employment list
-                employment_list.append(Employed(industry=row[0], employment=filter_data, date=months))
+                employment_list.append(Employed(industry=row[0],
+                                                employment=filter_data,
+                                                date=months))
 
     return employment_list
 
@@ -72,3 +74,18 @@ def add_covid_data() -> list[CovidData]:
                 covid_data.append(CovidData(date=row[0], cases=int(row[1])))
 
     return covid_data
+
+
+if __name__ == '__main__':
+    import python_ta
+    import python_ta.contracts
+
+    python_ta.contracts.DEBUG_CONTRACTS = False
+    python_ta.contracts.check_all_contracts()
+
+    python_ta.check_all(config={
+        'allowed-io': ['add_employment_data', 'add_covid_data'],
+        'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random', 'csv'],
+        'max-line-length': 100,
+        'disable': ['R1705', 'C0200']
+    })
