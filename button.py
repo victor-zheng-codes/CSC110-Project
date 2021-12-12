@@ -38,7 +38,7 @@ class Button:
     colour: tuple[int, int, int]
     dimension: tuple[int, int]
     position: tuple[int, int]
-    font_name: pygame.font
+    font_name: str
 
     def __init__(self, dimension: tuple[int, int], position: tuple[int, int]) -> None:
         """Initialize the variables for class Button.
@@ -47,7 +47,7 @@ class Button:
         self.colour = self.colours[0]  # Takes the first tuple from self.colours
         self.dimension = dimension  # Sets the dimension for the screen (width, height)
         self.position = position  # Sets the position of the button in (x, y)
-        self.font_name = pygame.font.match_font('dubai')  # Sets up the font
+        self.font_name = "M1PRegular-R3wv.ttf"  # Sets up the font
 
     def draw(self, surface: pygame.display, text: str, size: int) -> None:
         """Draw the button onto a display.
