@@ -60,9 +60,22 @@ class Visual:
         pygame.display.set_icon(pygame.image.load('COVID.jpg'))
         self.virus_pic = pygame.image.load('virus.png')
         self.virus_rect = self.virus_pic.get_rect()
+
+        small_button_width = 300
+
         self.buttons = {'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
-                        'quit': Button((200, 200), (w // 2 - 50, h // 2))}
+                        'Total employed, all industries': Button((small_button_width, 100),
+                                                                 (w // 4, h // 5)),
+                        'Goods-producing sector': Button((small_button_width, 100),
+                                                         (w // 4, h // 5 + 125)),
+                        'Agriculture': Button((small_button_width, 100), (w // 4, h // 5 + 250)),
+                        'Forestry':
+                            Button((small_button_width, 100), (w // 4, h // 5 + 375)),
+                        'Utilities':
+                            Button((small_button_width, 100), (w // 4, h // 5 + 500)),
+                        'Construction': Button((small_button_width, 100), (w // 4, h // 5 + 250))
+                        }
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
                   dimension: tuple[int, int]) -> None:
@@ -91,9 +104,9 @@ class Visual:
                     exit()
                 if self.buttons['individual'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    self.main()
+                    self.individual()
                 if self.buttons['all'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                    self.main()
+                    self.individual()
 
             self.screen.blit(self.virus_pic, self.virus_rect)
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment',
@@ -122,7 +135,7 @@ class Visual:
             pygame.display.update()  # Refreshes the display
             self.clock.tick(50)
 
-    def main(self) -> None:
+    def individual(self) -> None:
         """The main page of the program
         """
         while True:  # Infinite while loop
@@ -130,12 +143,41 @@ class Visual:
             mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
-                if self.buttons['quit'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
+                if self.buttons['Total employed, all industries'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+                if self.buttons['Goods-producing sector'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+                if self.buttons['Agriculture'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+                if self.buttons['Forestry'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+                if self.buttons['Utilities'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+                if self.buttons['Construction'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
 
-            self.buttons['quit'].draw(self.screen, 'bye', 30)
+            # Display the buttons
+            self.buttons['Total employed, all industries'].draw(self.screen, 'Total employed, '
+                                                                             'all industries', 15)
+            self.buttons['Goods-producing sector'].draw(self.screen, 'Goods-producing sector', 15)
+            self.buttons['Agriculture'].draw(self.screen, 'Agriculture', 15)
+            self.buttons['Forestry'].draw(
+                self.screen, 'Forestry, fishing, mining, quarrying, oil and gas', 15)
+            self.buttons['Utilities'].draw(self.screen, 'Utilities', 15)
+            self.buttons['Construction'].draw(self.screen, 'Construction', 15)
             pygame.display.update()
             self.clock.tick(50)
 
