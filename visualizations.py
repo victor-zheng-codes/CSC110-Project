@@ -143,6 +143,16 @@ def linear_regression(x_points: list[float], y_points: list[float]) -> tuple[flo
     return m, b
 
 
+def corelation_calculator(x_points: list[float], y_points: list[float]) -> float:
+    """Return a correlation of the association between the x and y variables
+
+    We can use this to judge the association between our x and y variables to determine if
+    we can even use linear regression. Linear regression assumes that there is some sort of
+    association between the x and y variables.
+    """
+    # TODO: implement corelation function and add doctests
+
+
 if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
