@@ -46,6 +46,54 @@ class Visualization:
 
         return [visualization_period, employment_numbers, covid_numbers]
 
+    def get_best_industries(self) -> list[str]:
+        """Returns the five industries with the steepest linear regression slopes (positive)
+        """
+        employment_data = cd.add_employment_data()
+
+        industries = []
+        for employment_d in employment_data:
+            # check if the industry provided matches the first letter or matches it with a comma
+            striped_industries = employment_d.industry.replace(',', '')
+            industries.append(striped_industries.split()[0])
+
+        # breakpoint()
+        industry_employment = {}
+        for industry in industries:
+            _, e_nums, c_nums = self.get_visualization_data(industry)
+            m, b = self.linear_regression_model(c_nums, e_nums)
+            industry_employment[industry] = m
+
+        # best_ind = []
+        # five_highest_scores = [0, 0, 0, 0, 0]
+        # for industry in industry_employment:
+        #     for score in five_highest_scores:
+        #         if industry_employment[industry] > score:
+        #             five_highest_scores.remove(score)
+        #             five_highest_scores.append(industry_employment[industry])
+        #             industry_employment
+        # breakpoint()
+        top_scores = []
+        for _ in range(5):
+            highest_score = max(industry_employment, key=industry_employment.get)
+            industry_employment.pop(highest_score)
+            top_scores.append(highest_score)
+
+        return top_scores
+
+    def display_best_association(self) -> None:
+        """Displays a visualization of the industries with the highest correlations (cor closest to
+        plus or minus 1)"""
+
+    def display_struggling_industries(self) -> None:
+        """Displays a graph of the industries with the steepest linear regression slopes (negative)
+        """
+
+    def display_worst_correlation(self) -> None:
+        """Displays a visualization of the 5 industries with the worst correlation scores. (cor
+        closest to zero)
+        """
+
     def display_individual_graphs(self, industry: str, start_date='2020-01', end_date='2021-11') -> None:
         """Display individual graph of COVID and industry relationship with linear regression
 
@@ -68,11 +116,11 @@ class Visualization:
 
         plt.scatter(covid_numbers, employment_numbers, c='darkblue')
 
-        m, b = self.linear_regression(x_points=covid_numbers, y_points=employment_numbers)
-        self.add_linear_regression(m, b, min(covid_numbers), max(covid_numbers))
+        m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
+        self.add_linear_regression_model(m, b, min(covid_numbers), max(covid_numbers))
         cor = self.correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
-        print(cor)
+        print(f'Correlation of {industry} and COVID cases: ', cor)
         plt.show()
 
     def industry_covid_visualization(self, industry: str, start_date='2020-01', end_date='2021-11') -> None:
@@ -99,7 +147,7 @@ class Visualization:
         plt.legend(loc='best')
         plt.show()
 
-    def add_linear_regression(self, m: float, b: float, start_x: float, end_x: float) -> None:
+    def add_linear_regression_model(self, m: float, b: float, start_x: float, end_x: float) -> None:
         """Adds a linear regression line to the graph between the two specified points"""
         y_0 = m * start_x + b
         y_1 = m * end_x + b
@@ -107,7 +155,7 @@ class Visualization:
         plt.plot([start_x, end_x], [y_0, y_1], label='linear regression line', c='red')
         plt.show()
 
-    def linear_regression(self, x_points: list[float], y_points: list[float]) -> tuple[float, float]:
+    def linear_regression_model(self, x_points: list[float], y_points: list[float]) -> tuple[float, float]:
         """Returns a tuple of two integers containing the formula for the linear regression line for the
          given points using the least least squares regression line formula. The first point is m, the
          slope of the line. The second point is b, the intercept of the line.
@@ -122,7 +170,7 @@ class Visualization:
 
         >>> x_points = [2,3,5,7,9]
         >>> y_points = [4,5,7,10,15]
-        >>> m, b = self.linear_regression(x_points, y_points)
+        >>> m, b = self.linear_regression_model(x_points, y_points)
         >>> assert round(m, 3) == 1.518
         >>> assert round(b, 3) == 0.305
         """
@@ -214,8 +262,8 @@ if __name__ == "__main__":
     import python_ta
     # test code for display_individual_graphs()
     v = Visualization()
-    v.display_individual_graphs("Utilities")
-
+    # v.display_individual_graphs("Utilities")
+    v.get_best_industries()
     # testing code for industry_covid_visualization()
     # industry_covid_visualization("Utilities", '2020-01', '2021-05')
 
