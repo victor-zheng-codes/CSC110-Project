@@ -40,7 +40,7 @@ def add_employment_data() -> list[Employed]:
         # skip the first line
         first_line = next(reader, None)
         months = first_line[1:]
-        print(months)
+        # print(months)
         # iterate through each line in the reader
         for row in reader:
             # check if the line is not empty
