@@ -62,19 +62,33 @@ class Visual:
         self.virus_rect = self.virus_pic.get_rect()
 
         small_button_width = 300
+        c1_x = w // 4  # column_1's x position
+        c2_x = w // 2  # column_2's x position
+        c3_x = w // 2 + w // 4  # column_3's x position
 
         self.buttons = {'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
-                        'Total employed, all industries': Button((small_button_width, 100),
-                                                                 (w // 4, h // 5)),
-                        'Goods-producing sector': Button((small_button_width, 100),
-                                                         (w // 4, h // 5 + 125)),
-                        'Agriculture': Button((small_button_width, 100), (w // 4, h // 5 + 250)),
-                        'Forestry':
-                            Button((small_button_width, 100), (w // 4, h // 5 + 375)),
-                        'Utilities':
-                            Button((small_button_width, 100), (w // 4, h // 5 + 500)),
-                        'Construction': Button((small_button_width, 100), (w // 4, h // 5 + 250))
+
+                        'Total': Button((small_button_width, 100), (c1_x, h // 5)),
+                        'Goods': Button((small_button_width, 100), (c1_x, h // 5 + 125)),
+                        'Agriculture': Button((small_button_width, 100), (c1_x, h // 5 + 250)),
+                        'Forestry': Button((small_button_width, 100), (c1_x, h // 5 + 375)),
+                        'Utilities': Button((small_button_width, 100), (c1_x, h // 5 + 500)),
+                        'Construction': Button((small_button_width, 100), (c1_x, h // 5 + 625)),
+
+                        'Manufacturing': Button((small_button_width, 100), (c2_x, h // 5)),
+                        'Services': Button((small_button_width, 100), (c2_x, h // 5 + 125)),
+                        'Wholesale': Button((small_button_width, 100), (c2_x, h // 5 + 250)),
+                        'Transportation': Button((small_button_width, 100), (c2_x, h // 5 + 375)),
+                        'Finance': Button((small_button_width, 100), (c2_x, h // 5 + 500)),
+                        'Professional': Button((small_button_width, 100), (c2_x, h // 5 + 625)),
+
+                        'Business': Button((small_button_width, 100), (c3_x, h // 5)),
+                        'Educational': Button((small_button_width, 100), (c3_x, h // 5 + 125)),
+                        'Health': Button((small_button_width, 100), (c3_x, h // 5 + 250)),
+                        'Information': Button((small_button_width, 100), (c3_x, h // 5 + 375)),
+                        'Accommodation': Button((small_button_width, 100), (c3_x, h // 5 + 500)),
+                        'Other': Button((small_button_width, 100), (c3_x, h // 5 + 625))
                         }
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
@@ -144,11 +158,11 @@ class Visual:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.start_menu()
-                if self.buttons['Total employed, all industries'].mouse_hover(
+                if self.buttons['Total'].mouse_hover(
                         mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                     # TODO
                     pass
-                if self.buttons['Goods-producing sector'].mouse_hover(
+                if self.buttons['Goods'].mouse_hover(
                         mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                     # TODO
                     pass
@@ -169,15 +183,99 @@ class Visual:
                     # TODO
                     pass
 
+                if self.buttons['Manufacturing'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Services'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Wholesale'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Transportation'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Finance'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Professional'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Business'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Educational'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Health'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Information'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Accommodation'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
+                if self.buttons['Other'].mouse_hover(
+                        mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    # TODO
+                    pass
+
             # Display the buttons
-            self.buttons['Total employed, all industries'].draw(self.screen, 'Total employed, '
-                                                                             'all industries', 15)
-            self.buttons['Goods-producing sector'].draw(self.screen, 'Goods-producing sector', 15)
+
+            # Column 1
+            self.buttons['Total'].draw(self.screen, 'Total employed, '
+                                                    'all industries', 15)
+            self.buttons['Goods'].draw(self.screen, 'Goods-producing sector', 15)
             self.buttons['Agriculture'].draw(self.screen, 'Agriculture', 15)
             self.buttons['Forestry'].draw(
                 self.screen, 'Forestry, fishing, mining, quarrying, oil and gas', 15)
             self.buttons['Utilities'].draw(self.screen, 'Utilities', 15)
             self.buttons['Construction'].draw(self.screen, 'Construction', 15)
+
+            # column 2
+
+            self.buttons['Manufacturing'].draw(self.screen, 'Manufacturing', 15)
+            self.buttons['Services'].draw(self.screen, 'Services-producing sector', 15)
+            self.buttons['Wholesale'].draw(self.screen, 'Wholesale and retail trade', 15)
+            self.buttons['Transportation'].draw(self.screen, 'Transportation and warehousing', 15)
+            self.buttons['Finance'].draw(self.screen, 'Finance, insurance, real estate, rental and '
+                                                      'leasing', 15)
+            self.buttons['Professional'].draw(self.screen, 'Professional, scientific and technical '
+                                                           'services', 15)
+
+            # column 3
+
+            self.buttons['Business'].draw(self.screen, 'Business, building and other support '
+                                                       'services', 15)
+            self.buttons['Educational'].draw(self.screen, 'Educational services', 15)
+            self.buttons['Health'].draw(self.screen, 'Health care and social assistance', 15)
+            self.buttons['Information'].draw(self.screen, 'Information, culture and recreation', 15)
+            self.buttons['Accommodation'].draw(self.screen, 'Accommodation and food services', 15)
+            self.buttons['Other'].draw(self.screen, 'Other services (except public administration)',
+                                       15)
             pygame.display.update()
             self.clock.tick(50)
 
