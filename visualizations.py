@@ -57,22 +57,12 @@ class Visualization:
             striped_industries = employment_d.industry.replace(',', '')
             industries.append(striped_industries.split()[0])
 
-        # breakpoint()
         industry_employment = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
             m, b = self.linear_regression_model(c_nums, e_nums)
             industry_employment[industry] = m
 
-        # best_ind = []
-        # five_highest_scores = [0, 0, 0, 0, 0]
-        # for industry in industry_employment:
-        #     for score in five_highest_scores:
-        #         if industry_employment[industry] > score:
-        #             five_highest_scores.remove(score)
-        #             five_highest_scores.append(industry_employment[industry])
-        #             industry_employment
-        # breakpoint()
         top_scores = []
         for _ in range(5):
             highest_score = max(industry_employment, key=industry_employment.get)
@@ -85,9 +75,30 @@ class Visualization:
         """Displays a visualization of the industries with the highest correlations (cor closest to
         plus or minus 1)"""
 
-    def display_struggling_industries(self) -> None:
-        """Displays a graph of the industries with the steepest linear regression slopes (negative)
+    def get_struggling_industries(self) -> list[str]:
+        """Returns the five industries with the steepest linear regression slopes (negative)
         """
+        employment_data = cd.add_employment_data()
+
+        industries = []
+        for employment_d in employment_data:
+            # check if the industry provided matches the first letter or matches it with a comma
+            striped_industries = employment_d.industry.replace(',', '')
+            industries.append(striped_industries.split()[0])
+
+        industry_employment = {}
+        for industry in industries:
+            _, e_nums, c_nums = self.get_visualization_data(industry)
+            m, b = self.linear_regression_model(c_nums, e_nums)
+            industry_employment[industry] = m
+
+        lowest_scores = []
+        for _ in range(5):
+            highest_score = min(industry_employment, key=industry_employment.get)
+            industry_employment.pop(highest_score)
+            lowest_scores.append(highest_score)
+
+        return lowest_scores
 
     def display_worst_correlation(self) -> None:
         """Displays a visualization of the 5 industries with the worst correlation scores. (cor
@@ -263,7 +274,7 @@ if __name__ == "__main__":
     # test code for display_individual_graphs()
     v = Visualization()
     # v.display_individual_graphs("Utilities")
-    v.get_best_industries()
+    print(v.get_struggling_industries())
     # testing code for industry_covid_visualization()
     # industry_covid_visualization("Utilities", '2020-01', '2021-05')
 
