@@ -17,6 +17,7 @@ This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and V
 from sys import exit
 import random
 import pygame
+import matplotlib.pyplot as plt
 
 from visualizations import Visualization
 from button import Button
@@ -176,9 +177,9 @@ class Visual:
                 for industry in industries:
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                        # v = Visualization()
-                        # v.display_individual_graphs()
-                        pass
+                        plt.plot([1, 2, 3, 4])
+                        plt.ylabel('some numbers')
+                        plt.show()
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment'
                            'Impact on Individual Industries', 30, (w // 2, h // 12))
