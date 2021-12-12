@@ -131,11 +131,10 @@ def linear_regression(x_points: list[float], y_points: list[float]) -> tuple[flo
         sum_y += val
     # Calculate the sum for x points times y points
     sum_xy = 0
-
     for i in range(n):
         sum_xy += x_points[i] * y_points[i]
 
-    print(sum_x, sum_y, sum_x_squared, sum_xy)
+    # print(sum_x, sum_y, sum_x_squared, sum_xy)
 
     m = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x ** 2)
     b = (sum_y - m * sum_x)/n
@@ -143,14 +142,64 @@ def linear_regression(x_points: list[float], y_points: list[float]) -> tuple[flo
     return m, b
 
 
-def corelation_calculator(x_points: list[float], y_points: list[float]) -> float:
+def correlation_calculator(x_points: list[float], y_points: list[float]) -> float:
     """Return a correlation of the association between the x and y variables
 
     We can use this to judge the association between our x and y variables to determine if
     we can even use linear regression. Linear regression assumes that there is some sort of
     association between the x and y variables.
+
+    We will use the Pearson Correlation Coeficient Formula, the most commonly used correlation
+    formula.
+
+    Sources (cite later): https://www.questionpro.com/blog/pearson-correlation-coefficient/,
+    https://www.wallstreetmojo.com/pearson-correlation-coefficient/
+
+    r = (n(Σxy) - (Σx)(Σy)) / ((nΣx^2 - (Σx)^2)(nΣy^2 - (Σy)^2)) ** 0.5
+
+    r = Pearson Coefficient
+    n= number of the pairs of the stock
+    ∑xy = sum of products of the paired scores
+    ∑x = sum of the x scores
+    ∑y= sum of the y scores
+    ∑x^2 = sum of the squared x scores
+    ∑y^2 = sum of the squared y scores
+
+    Precondition:
+        - Length of x_p and y_p are the same
+
+    >>> x_p = [6,8,10]
+    >>> y_p = [12,10,20]
+    >>> round(correlation_calculator(x_p, y_p), 4) == 0.7559
+    True
     """
-    # TODO: implement corelation function and add doctests
+    # calculate n, the number of pairs
+    n = len(x_points)
+
+    # Calculate the sum for x points and x squared points
+    sum_x = 0
+    sum_x_squared = 0
+    for val in x_points:
+        sum_x += val
+        sum_x_squared += val ** 2
+
+    # Calculate the sum for y points and y squared poionts
+    sum_y = 0
+    sum_y_squared = 0
+    for val in y_points:
+        sum_y += val
+        sum_y_squared += val ** 2
+
+    # Calculate the sum for x points times y points
+    sum_xy = 0
+    for i in range(n):
+        sum_xy += x_points[i] * y_points[i]
+
+    # print(sum_x, sum_y, sum_x_squared, sum_y_squared, sum_xy)
+
+    r = (n * sum_xy - sum_x * sum_y) / ((n * sum_x_squared - sum_x ** 2) * (n * sum_y_squared - sum_y ** 2)) ** 0.5
+
+    return r
 
 
 if __name__ == "__main__":
