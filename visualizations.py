@@ -189,8 +189,8 @@ class Visualization:
             plt.scatter(covid_numbers, employment_numbers, c=color, label=industry)
 
             m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
-            self.add_linear_regression_model(m, b, min(covid_numbers),
-                                             max(covid_numbers), color=color)
+            self.add_linear_regression_model(m, b, (min(covid_numbers),
+                                             max(covid_numbers)), color=color)
 
         plt.legend(loc='best')
         plt.show()
@@ -221,7 +221,7 @@ class Visualization:
         plt.scatter(covid_numbers, employment_numbers, c='darkblue')
 
         m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
-        self.add_linear_regression_model(m, b, min(covid_numbers), max(covid_numbers))
+        self.add_linear_regression_model(m, b, (min(covid_numbers), max(covid_numbers)))
         cor = self.correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
         print(f'Correlation of {industry} and COVID cases: ', cor)
@@ -254,9 +254,10 @@ class Visualization:
         plt.legend(loc='best')
         plt.show()
 
-    def add_linear_regression_model(self, m: float, b: float, start_x: float, end_x: float,
+    def add_linear_regression_model(self, m: float, b: float, start_end_x: tuple[float, float],
                                     color: Optional[str] = 'red') -> None:
         """Adds a linear regression line to the graph between the two specified points"""
+        start_x, end_x = start_end_x
         y_0 = m * start_x + b
         y_1 = m * end_x + b
 
