@@ -9,7 +9,7 @@ def filter_covid() -> None:
     """
     filtered_data = {}
     # read the covid_data.csv file. This file is too large to submit or put onto GitHub.
-    with open('data/covid_data.csv') as csv_file:
+    with open('covid_data.csv') as csv_file:
         # read through each line in covid_data.csv
         csv_reader = csv.reader(csv_file, delimiter=',')
         # skip the first line with variable names
