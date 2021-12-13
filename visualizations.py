@@ -13,6 +13,10 @@ class Visualization:
             - employment_data: the employment data from the extracted file
             - covid_data: the covid data from the extracted file
 
+        Representation Invariants:
+            - all(data >= 0 for data in self.covid_data)
+            - all(data >= 0 for data in self.employment_data)
+
     """
     plot: plt
     employment_data: list[cd.Employed]
