@@ -2,7 +2,7 @@
 from typing import Optional
 
 import matplotlib.pyplot as plt
-import code_data as cd
+import extract as cd
 
 
 class Visualization:
@@ -383,7 +383,7 @@ if __name__ == "__main__":
     python_ta.check_all(config={
         'allowed-io': ['industry_covid_visualization', 'display_individual_graphs',
                        'get_best_association', 'get_worst_association'],
-        'extra-imports': ['matplotlib.pyplot', 'code_data'],
+        'extra-imports': ['matplotlib.pyplot', 'extract'],
         'max-line-length': 100,
         'disable': ['R1705', 'C0200']
     })
