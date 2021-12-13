@@ -36,6 +36,7 @@ class Visual:
 
     Representation Invariants:
         - all(num >= 0 for num in self.dimensions)
+        - self.font_name[-4:] == ".ttf"
     """
     dimension: tuple[int, int]
     screen: pygame.display
@@ -71,7 +72,7 @@ class Visual:
         # Position of buttons on the screen
         self.buttons = {'back': Button((100, 50), (50, 25)),
                         'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
-                        'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
+                        'all': Button((500, 150), (w // 2 - 50, h // 2 + 210)),
 
                         'Total': Button((small_button_width, 100), (c1_x, h // 5)),
                         'Goods-producing': Button((small_button_width, 100), (c1_x, h // 5 + 125)),

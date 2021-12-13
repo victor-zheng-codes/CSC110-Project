@@ -28,10 +28,10 @@ class Button:
         - font_name: the name of our pygame font
 
     Representation Invariants:
-        - all(0 <= value[0] <= 255 for value in colours)
-        - all(0 <= value[1] <= 255 for value in colours)
-        - all(0 <= value[2] <= 255 for value in colours)
-        - all(0 <= value <= 255 for value in colour)
+        - all(0 <= value[0] <= 255 for value in self.colours)
+        - all(0 <= value[1] <= 255 for value in self.colours)
+        - all(0 <= value[2] <= 255 for value in self.colours)
+        - all(0 <= value <= 255 for value in self.colour)
         - all(num >= 0 for num in self.dimensions)
     """
     colours: list[tuple[int, int, int]]
