@@ -23,7 +23,7 @@ class Visualization:
     covid_data: list[cd.CovidData]
 
     def __init__(self) -> None:
-        """Initializes the Visualization class and plot variable, and starts up the program.
+        """Initializes the Visualization class and plot variable.
         """
         self.plot = plt
         self.employment_data = cd.add_employment_data()
@@ -280,10 +280,10 @@ class Visualization:
 def linear_regression_model(x_points: list[float], y_points: list[float]) -> \
         tuple[float, float]:
     """Returns a tuple of two integers containing the formula for the linear regression line for
-    the given points using the least least squares regression line formula. The first point is
+    the given points using the least squares regression line formula. The first point is
     m, the slope of the line. The second point is b, the intercept of the line.
 
-    This helps us form an equaltion using the formula y = mx + b
+    This helps us form an equation using the formula y = mx + b
 
     slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
     source: https://www.mathsisfun.com/data/least-squares-regression.html
