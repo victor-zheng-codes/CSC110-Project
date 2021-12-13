@@ -188,8 +188,8 @@ class Visual:
                         # plt.show()
                         # print("Ran Successfully")
             self.draw_text(self.screen,
-                           'CO(VISION): COVID-19’s Impact on employment'
-                           'Impact on Individual Industries', 30, (w // 2, h // 12))
+                           'CO(VISION): COVID-19’s Impact on employment Impact on Individual '
+                           'Industries', 30, (w // 2, h // 12))
 
             # Display the buttons
 
