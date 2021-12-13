@@ -176,11 +176,13 @@ class Visualization:
 
         for industry in industries:
             _, employment_numbers, covid_numbers = self.get_visualization_data(industry)
-            plt.scatter(covid_numbers, employment_numbers, c=plt_colors[industries.index(industry)])
+            color = plt_colors[industries.index(industry)]
+            plt.scatter(covid_numbers, employment_numbers, c=color, label=industry)
 
             m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
-            self.add_linear_regression_model(m, b, min(covid_numbers), max(covid_numbers))
+            self.add_linear_regression_model(m, b, min(covid_numbers), max(covid_numbers), color=color)
 
+        plt.legend(loc='best')
         plt.show()
 
     def display_individual_graphs(self, industry: str, start_date='2020-01', end_date='2021-11') -> None:
@@ -236,12 +238,12 @@ class Visualization:
         plt.legend(loc='best')
         plt.show()
 
-    def add_linear_regression_model(self, m: float, b: float, start_x: float, end_x: float) -> None:
+    def add_linear_regression_model(self, m: float, b: float, start_x: float, end_x: float, color='red') -> None:
         """Adds a linear regression line to the graph between the two specified points"""
         y_0 = m * start_x + b
         y_1 = m * end_x + b
 
-        plt.plot([start_x, end_x], [y_0, y_1], label='linear regression line', c='red')
+        plt.plot([start_x, end_x], [y_0, y_1], c=color)
 
     def linear_regression_model(self, x_points: list[float], y_points: list[float]) -> tuple[float, float]:
         """Returns a tuple of two integers containing the formula for the linear regression line for the
