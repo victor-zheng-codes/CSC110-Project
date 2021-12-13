@@ -47,14 +47,15 @@ class Button:
             - position != ()
             - dimension != ()
         """
+        # Initialize the colours for the button
         self.colours = [(240, 240, 240), (200, 200, 200)]
         # Takes the first tuple from self.colours
         self.colour = self.colours[0]
-        # Sets the dimension for the screen as (width, height)
+        # Initialize the dimension for the screen as (width, height)
         self.dimension = dimension
-        # Sets the position of the button as (x, y)
+        # Initialize the position of the button as (x, y)
         self.position = position
-        # Sets up the font name
+        # Initialize the font name
         self.font_name = "M1PRegular-R3wv.ttf"
 
     def draw(self, surface: pygame.display, text: str, size: int) -> None:
