@@ -240,6 +240,7 @@ class Visual:
         while True:
             self.screen.fill((255, 255, 255))
             mouse = pygame.mouse.get_pos()
+            v = Visualization()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -250,27 +251,24 @@ class Visual:
 
                 if self.buttons['Top Benefit'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    v = Visualization()
                     association = v.get_benefited_industries()
                     v.display_multiple_associations(association, criteria="Benefited")
-                    # association = v.get_best_association()
-                    # v.display_multiple_associations(association, criteria="Best Association")
 
                 if self.buttons['Top Suffer'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    v = Visualization()
-                    # association = v.get_worst_association()
-                    # v.display_multiple_associations(association, criteria="Worst Association")
                     association = v.get_struggling_industries()
                     v.display_multiple_associations(association, criteria="Suffered")
 
                 if self.buttons['Top Strong'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    association = v.get_best_association()
+                    v.display_multiple_associations(association, criteria="Best Association")
 
                 if self.buttons['Top Weak'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    association = v.get_worst_association()
+                    v.display_multiple_associations(association, criteria="Worst Association")
+
 
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            60, (w // 2, h // 4))
