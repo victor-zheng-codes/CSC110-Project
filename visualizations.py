@@ -6,13 +6,24 @@ import extract as cd
 
 
 class Visualization:
-    """Class for visualizations"""
+    """Class for visualizations
+
+        Instance Attributes:
+            - plot: the current plot that we are using
+            - employment_data: the employment data from the extracted file
+            - covid_data: the covid data from the extracted file
+
+    """
     plot: plt
+    employment_data: list[cd.Employed]
+    covid_data: list[cd.CovidData]
 
     def __init__(self) -> None:
         """Initializes the Visualization class and plot variable, and starts up the program.
         """
         self.plot = plt
+        self.employment_data = cd.add_employment_data()
+        self.covid_data = cd.add_covid_data()
 
     def get_visualization_data(self, industry: str, start_date: Optional[str] = '2020-01',
                                end_date: Optional[str] = '2021-11') -> \
@@ -20,14 +31,10 @@ class Visualization:
         """Return the visualization months, employment numbers, and covid numbers
         for the correct time period. Time period is from Jan 2020 to Nov 2021 if it is not provided
         """
-        # get the filtered employment and covid data
-        employment_data = cd.add_employment_data()
-        covid_data = cd.add_covid_data()
-
         # take all employment rates and dates for the correct industry
         employment_rates = []
         employment_months = []
-        for employment_d in employment_data:
+        for employment_d in self.employment_data:
             # check if the industry provided matches the first letter or matches it with a comma
             if employment_d.industry.split()[0] == industry or \
                     employment_d.industry.split()[0] == industry + ',':
@@ -38,10 +45,10 @@ class Visualization:
         covid_dates = []
         covid_rates = []
         # only use the 2 to the last industry
-        for i in range(2, len(covid_data) - 1):
-            covid_dates.append(covid_data[i].date)
+        for i in range(2, len(self.covid_data) - 1):
+            covid_dates.append(self.covid_data[i].date)
             # divide by 1000 to match the employment relationship
-            covid_rates.append(covid_data[i].cases / 1000)
+            covid_rates.append(self.covid_data[i].cases / 1000)
 
         # visualization period will be the same for covid and employment datasets
         visualization_period = \
@@ -57,10 +64,9 @@ class Visualization:
     def get_benefited_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (positive)
         """
-        employment_data = cd.add_employment_data()
 
         industries = []
-        for employment_d in employment_data:
+        for employment_d in self.employment_data:
             # skip over the total industries b/c they don't count as an industry
             if 'Total' not in employment_d.industry:
                 # check if the industry provided matches the first letter or matches it with a comma
@@ -84,10 +90,8 @@ class Visualization:
     def get_struggling_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (negative)
         """
-        employment_data = cd.add_employment_data()
-
         industries = []
-        for employment_d in employment_data:
+        for employment_d in self.employment_data:
             # skip over the total industries b/c they don't count as an industry
             if 'Total' not in employment_d.industry:
                 # check if the industry provided matches the first letter or matches it with a comma
@@ -111,10 +115,9 @@ class Visualization:
     def get_best_association(self) -> list[str]:
         """Returns the 5 industries with the highest correlations (cor closest to
         plus or minus 1)"""
-        employment_data = cd.add_employment_data()
 
         industries = []
-        for employment_d in employment_data:
+        for employment_d in self.employment_data:
             if 'Total' not in employment_d.industry:
                 # check if the industry provided matches the first letter or matches it with a comma
                 striped_industries = employment_d.industry.replace(',', '')
@@ -144,10 +147,8 @@ class Visualization:
 
     def get_worst_association(self) -> list[str]:
         """Returns the 5 industries with the smallest correlations (cor closest to zero)"""
-        employment_data = cd.add_employment_data()
-
         industries = []
-        for employment_d in employment_data:
+        for employment_d in self.employment_data:
             if 'Total' not in employment_d.industry:
                 # check if the industry provided matches the first letter or matches it with a comma
                 striped_industries = employment_d.industry.replace(',', '')
