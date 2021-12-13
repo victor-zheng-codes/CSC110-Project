@@ -1,0 +1,8 @@
+# CSC110 Project Requirements: Libraries we used for this project.
+
+# Graphics and data visualization
+matplotlib==3.5.0
+pygame==2.0.1
+
+# Code checking
+python_ta==2.0.0
