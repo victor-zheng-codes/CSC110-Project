@@ -36,6 +36,7 @@ class Visual:
 
     Representation Invariants:
         - all(num >= 0 for num in self.dimensions)
+        - self.font_name[-4:] == ".ttf"
     """
     dimension: tuple[int, int]
     screen: pygame.display
@@ -71,7 +72,7 @@ class Visual:
         # Position of buttons on the screen
         self.buttons = {'back': Button((100, 50), (50, 25)),
                         'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
-                        'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
+                        'all': Button((500, 150), (w // 2 - 50, h // 2 + 210)),
 
                         'Total': Button((small_button_width, 100), (c1_x, h // 5)),
                         'Goods-producing': Button((small_button_width, 100), (c1_x, h // 5 + 125)),
@@ -191,8 +192,10 @@ class Visual:
                         # plt.show()
                         # print("Ran Successfully")
             self.draw_text(self.screen,
-                           'CO(VISION): COVID-19’s Impact on employment Impact on Individual '
-                           'Industries', 30, (w // 2, h // 12))
+                           'CO(VISION): COVID-19’s Impact on employment', 30,
+                           (w // 2, h // 12 - 45))
+            self.draw_text(self.screen,
+                           'Impact on Individual Industries', 25, (w // 2, h // 12 + 20))
 
             # Display the buttons
 
@@ -240,6 +243,7 @@ class Visual:
         while True:
             self.screen.fill((255, 255, 255))
             mouse = pygame.mouse.get_pos()
+            v = Visualization()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -250,32 +254,28 @@ class Visual:
 
                 if self.buttons['Top Benefit'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    v = Visualization()
                     association = v.get_benefited_industries()
                     v.display_multiple_associations(association, criteria="Benefited")
-                    # association = v.get_best_association()
-                    # v.display_multiple_associations(association, criteria="Best Association")
 
                 if self.buttons['Top Suffer'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    v = Visualization()
-                    # association = v.get_worst_association()
-                    # v.display_multiple_associations(association, criteria="Worst Association")
                     association = v.get_struggling_industries()
                     v.display_multiple_associations(association, criteria="Suffered")
 
                 if self.buttons['Top Strong'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    association = v.get_best_association()
+                    v.display_multiple_associations(association, criteria="Strong association")
 
                 if self.buttons['Top Weak'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    association = v.get_worst_association()
+                    v.display_multiple_associations(association, criteria="Weak association")
 
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
-                           60, (w // 2, h // 4))
+                           55, (w // 2, h // 4))
             self.draw_text(self.screen, 'Impact on all industries',
-                           60, (w // 2, h // 4 + 70))
+                           45, (w // 2, h // 4 + 100))
 
             self.buttons['Top Benefit'].draw(self.screen, "Top 5 Industries that benefited from "
                                                           "COVID", 20)

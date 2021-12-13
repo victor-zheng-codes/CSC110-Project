@@ -1,4 +1,4 @@
-"""Dataclass to encapsulate data"""
+"""Dataclass to extract data into dataclasses"""
 from dataclasses import dataclass
 import csv
 
@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
     python_ta.check_all(config={
         'allowed-io': ['add_employment_data', 'add_covid_data'],
-        'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random', 'csv'],
+        'extra-imports': ['python_ta.contracts', 'csv'],
         'max-line-length': 100,
         'disable': ['R1705', 'C0200']
     })
