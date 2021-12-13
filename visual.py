@@ -193,9 +193,9 @@ class Visual:
                         # print("Ran Successfully")
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment', 30,
-                           (w // 2, h // 12 - 15))
+                           (w // 2, h // 12 - 45))
             self.draw_text(self.screen,
-                           'Impact on Individual Industries', 30, (w // 2, h // 12 + 25))
+                           'Impact on Individual Industries', 25, (w // 2, h // 12 + 20))
 
             # Display the buttons
 
