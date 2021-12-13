@@ -46,7 +46,7 @@ class Visualization:
 
         return [visualization_period, employment_numbers, covid_numbers]
 
-    def get_best_industries(self) -> list[str]:
+    def get_benefited_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (positive)
         """
         employment_data = cd.add_employment_data()
