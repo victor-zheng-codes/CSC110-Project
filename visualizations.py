@@ -131,7 +131,7 @@ class Visualization:
             # be negative or positive
             industry_correlations[industry] = abs(cor)
 
-        print(industry_correlations)
+        # print(industry_correlations)
 
         # calculate the 5 highest correlations in the dictionary
         highest_cor = []
@@ -160,7 +160,7 @@ class Visualization:
             cor = correlation_calculator(c_nums, e_nums)
             industry_correlations[industry] = abs(cor)
 
-        print(industry_correlations)
+        # print(industry_correlations)
 
         # calculate the 5 lowest correlations in the dictionary
         lowest_correlations = []
