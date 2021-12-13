@@ -56,7 +56,7 @@ class Button:
         # Initialize the position of the button as (x, y)
         self.position = position
         # Initialize the font name
-        self.font_name = "M1PRegular-R3wv.ttf"
+        self.font_name = "project_font.ttf"
 
     def draw(self, surface: pygame.display, text: str, size: int) -> None:
         """Draws the button onto a display.
