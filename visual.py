@@ -179,14 +179,14 @@ class Visual:
                 for industry in industries:
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                        print("Begin Run")
+                        # print("Begin Run")
                         v = Visualization()
                         v.display_individual_graphs(industry)
                         v.industry_covid_visualization(industry)
                         # plt.plot([1, 2, 3, 4])
                         # plt.ylabel('some numbers')
                         # plt.show()
-                        print("Ran Successfully")
+                        # print("Ran Successfully")
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment'
                            'Impact on Individual Industries', 30, (w // 2, h // 12))
@@ -247,11 +247,19 @@ class Visual:
 
                 if self.buttons['Top Benefit'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    pass
+                    v = Visualization()
+                    association = v.get_benefited_industries()
+                    v.display_multiple_associations(association, criteria="Benefited")
+                    # association = v.get_best_association()
+                    # v.display_multiple_associations(association, criteria="Best Association")
+
                 if self.buttons['Top Suffer'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    # TODO
-                    pass
+                    v = Visualization()
+                    # association = v.get_worst_association()
+                    # v.display_multiple_associations(association, criteria="Worst Association")
+                    association = v.get_struggling_industries()
+                    v.display_multiple_associations(association, criteria="Suffered")
 
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            60, (w // 2, h // 4))
