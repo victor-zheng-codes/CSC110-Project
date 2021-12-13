@@ -23,7 +23,7 @@ from button import Button
 
 
 class Visual:
-    """This visualizes the product of our computation.
+    """Class to visualize the product of our computation to interact and utilize.
 
     Instance Attributes:
         - dimension: the dimension of the screen in (width, height)
@@ -48,28 +48,41 @@ class Visual:
     buttons: dict[str, Button]
 
     def __init__(self) -> None:
-        """Initializes the visual class and its variables, and starts up the program.
-        Uses the class Buttons.
+        """Initializes the Visual class and its variables, and starts up the program.
         """
+        # Initialize all imported pygame modules
         pygame.init()
-        self.font_name = "M1PRegular-R3wv.ttf"  # Sets up the font
-        self.dimension = (1600, 1000)  # Sets the dimension for the screen (width, height)
+        # Initialize the font
+        self.font_name = "M1PRegular-R3wv.ttf"
+        # Initialize the dimension for the screen as (width, height)
+        self.dimension = (1600, 1000)
+        # Assigns the variables w, h to the elements in dimension
         w, h = self.dimension
+        # Initialize a screen for display
         self.screen = pygame.display.set_mode((w, h))
 
+        # Set the display window caption as 'CO(VISION)'
         pygame.display.set_caption('CO(VISION)')
+        # Initializes an object to track time
         self.clock = pygame.time.Clock()
         # http://resources.finalsite.net/images/v1603987533/ellensburg/ixbajjxlqntul6ymrofc/COVID.jpg
+        # Set the caption image for the display window
         pygame.display.set_icon(pygame.image.load('COVID.jpg'))
+        # Loads the image of our virus.png
         self.virus_pic = pygame.image.load('virus.png')
+        # Gets the rectangular area of the image
         self.virus_rect = self.virus_pic.get_rect()
 
+        # Initializes a variable for the width of a button
         small_button_width = 400
-        c1_x = w // 4 - 50  # column_1's x position
-        c2_x = w // 2  # column_2's x position
-        c3_x = w // 2 + w // 4 + 50  # column_3's x position
+        # Initialize column_1's x position
+        c1_x = w // 4 - 50
+        # Initialize column_2's x position
+        c2_x = w // 2
+        # Initialize column_3's x position
+        c3_x = w // 2 + w // 4 + 50
 
-        # Position of buttons on the screen
+        # Dimension and position of each button on the screen
         self.buttons = {'back': Button((100, 50), (50, 25)),
                         'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 210)),
@@ -104,36 +117,57 @@ class Visual:
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
                   dimension: tuple[int, int]) -> None:
-        """Draw the button onto a display
+        """Draw the text onto a display
+
+        Preconditions:
+            - size > 0
+            - len(text) > 0
         """
+        # Assigns x, y to elements of the dimension
         x, y = dimension
+        # Assign the font
         font = pygame.font.Font(self.font_name, size)
+        # Draw text on the display
         text_surface = font.render(text, True, (0, 0, 0))
+        # Gets the rectangular area of the text
         text_rect = text_surface.get_rect(center=(x, y))
+        # Draws the objects onto the screen
         surface.blit(text_surface, text_rect)
 
     def start_menu(self) -> None:
-        """The main menu of the program
+        """The main menu of the program. Front page of the user interface.
         """
+        # Assigns width, height to elements of the dimension
         w, h = self.dimension
         # Image spawns at a random position on the screen
         self.virus_rect.topleft = (random.randint(0, w // 2), random.randint(0, h // 2))
-        x_velocity = random.choice([-10, 10])  # The speed of the image
+        # Select a random x velocity
+        x_velocity = random.choice([-10, 10])
+        # Select a random y velocity
         y_velocity = random.choice([-6, 6])
+        # Creates an infinite while loop
         while True:
+            # Fills the screen with a white background
             self.screen.fill((255, 255, 255))
+            # Get the mouse cursor position
             mouse = pygame.mouse.get_pos()
+            # Get events
             for event in pygame.event.get():
+                # Terminate the program
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                # Tracks if the mouse clicks on the Individual Comparisons button
                 if self.buttons['individual'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.individual()
+                # Tracks if the mouse clicks on the All Comparisons button
                 if self.buttons['all'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                     self.all()
 
+            # Draws the virus.png onto the screen
             self.screen.blit(self.virus_pic, self.virus_rect)
+            # Draws text using the draw_text function
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment',
                            50, (w // 2, h // 4))
             self.draw_text(self.screen, 'How does  the  pandemic  impact  employment  in  Ontario?',
@@ -141,9 +175,11 @@ class Visual:
             self.draw_text(self.screen,
                            'Are  there  certain  industries  that  suffered or '
                            'benefited more than others?', 40, (w // 2, h // 3 + 50))
+            # Draws buttons
             self.buttons['individual'].draw(self.screen, "Individual Comparisons", 35)
             self.buttons['all'].draw(self.screen, "All Comparisons", 35)
 
+            # Sets the speed of the virus.png
             self.virus_rect.x += x_velocity
             self.virus_rect.y += y_velocity
 
@@ -157,40 +193,59 @@ class Visual:
             if self.virus_rect.y < 0:
                 y_velocity = -y_velocity
 
-            pygame.display.update()  # Refreshes the display
+            # Refreshes the display
+            pygame.display.update()
+            # Updates the clock by 50 frames per second
             self.clock.tick(50)
 
     def individual(self) -> None:
-        """The main page of the program
+        """The page for Impact on Individual Industries. Displays the 18 interactive buttons for
+        different graphs, related to individual graphs of COVID and industry relationship with
+        linear regression.
         """
+        # Assigns width, height to elements of the dimension
         w, h = self.dimension
-        while True:  # Infinite while loop
-            self.screen.fill((255, 255, 255))  # Background colour of the screen
-            mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
+        # Creates an infinite while loop
+        while True:
+            # Background colour of the screen
+            self.screen.fill((255, 255, 255))
+            # Get the mouse cursor position
+            mouse = pygame.mouse.get_pos()
+            # Get events
             for event in pygame.event.get():
+                # Terminate the program
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                # Tracks if the mouse clicks on the Back button
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    # Brings the user to the start_menu function
                     self.start_menu()
 
+                # Assign industries to a list of industries, corresponding to our data
                 industries = ['Total', 'Goods-producing', 'Agriculture', 'Forestry', 'Utilities',
                               'Construction', 'Manufacturing', 'Services-producing', 'Wholesale',
                               'Transportation', 'Finance', 'Professional', 'Business',
                               'Educational', 'Health', 'Information', 'Accommodation',
                               'Other']
                 for industry in industries:
+                    # Tracks if the mouse clicks on an Industry button
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
                         # print("Begin Run")
+                        # Assign the Visualization class to v
                         v = Visualization()
+                        # Display the corresponding individual industry graph
                         v.display_individual_graphs(industry)
+                        # Display the corresponding covid visualization graph
                         v.industry_covid_visualization(industry)
                         # plt.plot([1, 2, 3, 4])
                         # plt.ylabel('some numbers')
                         # plt.show()
                         # print("Ran Successfully")
+
+            # Draws text using the draw_text function
             self.draw_text(self.screen,
                            'CO(VISION): COVID-19’s Impact on employment', 30,
                            (w // 2, h // 12 - 45))
@@ -232,51 +287,85 @@ class Visual:
                                        15)
 
             self.buttons['back'].draw(self.screen, "Back", 20)
+
+            # Refreshes the display
             pygame.display.update()
+            # Updates the clock by 50 frames per second
             self.clock.tick(50)
 
     def all(self) -> None:
-        """The all menu of the program
+        """The page for Impact on All Industries. Displays the 4 interactive buttons for
+        different graphs, related to 5 industries that have the highest, weakest, worst, or best
+        correlation to employment rates and COVID.
         """
+        # Assigns width, height to elements of the dimension
         w, h = self.dimension
 
+        # Creates an infinite while loop
         while True:
+            # Background colour of the screen
             self.screen.fill((255, 255, 255))
+            # Get the mouse cursor position
             mouse = pygame.mouse.get_pos()
+            # Assign the Visualization class to v
             v = Visualization()
+            # Get events
             for event in pygame.event.get():
+                # Terminate the program
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                # Tracks if the mouse clicks on the Back button
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    # Brings the user to the start_menu function
                     self.start_menu()
 
+                # Tracks if the mouse clicks on the Top Benefit button
                 if self.buttons['Top Benefit'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    # Assign association to get_benefited_industries function in the
+                    # visualization class
                     association = v.get_benefited_industries()
+                    # Displays the graph of 5 industries with the steepest positive
+                    # linear regression
                     v.display_multiple_associations(association, criteria="Benefited")
 
+                # Tracks if the mouse clicks on the Top Suffer button
                 if self.buttons['Top Suffer'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    # Assign association to get_struggling_industries function in the
+                    # visualization class
                     association = v.get_struggling_industries()
+                    # Displays the graph of 5 industries with the steepest negative
+                    # linear regression
                     v.display_multiple_associations(association, criteria="Suffered")
 
+                # Tracks if the mouse clicks on the Top Strong button
                 if self.buttons['Top Strong'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    # Assign association to get_best_association function in the
+                    # visualization class
                     association = v.get_best_association()
+                    # Displays the graph of 5 industries with the highest correlations
                     v.display_multiple_associations(association, criteria="Strong association")
 
+                # Tracks if the mouse clicks on the Top Weak button
                 if self.buttons['Top Weak'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    # Assign association to get_worst_association function in the
+                    # visualization class
                     association = v.get_worst_association()
+                    # Displays the graph of 5 industries with the smallest correlations
                     v.display_multiple_associations(association, criteria="Weak association")
 
+            # Draws text using the draw_text function
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            55, (w // 2, h // 4))
             self.draw_text(self.screen, 'Impact on all industries',
                            45, (w // 2, h // 4 + 100))
 
+            # Display the buttons
             self.buttons['Top Benefit'].draw(self.screen, "Top 5 Industries that benefited from "
                                                           "COVID", 20)
             self.buttons['Top Suffer'].draw(self.screen, "Top 5 Industries that suffered from"
@@ -287,7 +376,9 @@ class Visual:
                                                        "correlations", 20)
             self.buttons['back'].draw(self.screen, "Back", 20)
 
-            pygame.display.update()  # Refreshes the display
+            # Refreshes the display
+            pygame.display.update()
+            # Updates the clock by 50 frames per second
             self.clock.tick(50)
 
 
