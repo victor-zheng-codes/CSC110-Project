@@ -262,12 +262,12 @@ class Visual:
                 if self.buttons['Top Strong'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     association = v.get_best_association()
-                    v.display_multiple_associations(association, criteria="Best Association")
+                    v.display_multiple_associations(association, criteria="Strong association")
 
                 if self.buttons['Top Weak'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     association = v.get_worst_association()
-                    v.display_multiple_associations(association, criteria="Worst Association")
+                    v.display_multiple_associations(association, criteria="Weak association")
 
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            60, (w // 2, h // 4))
