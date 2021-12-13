@@ -82,7 +82,8 @@ class Visual:
                         'Construction': Button((small_button_width, 100), (c1_x, h // 5 + 625)),
 
                         'Manufacturing': Button((small_button_width, 100), (c2_x, h // 5)),
-                        'Services-producing': Button((small_button_width, 100), (c2_x, h // 5 + 125)),
+                        'Services-producing':
+                            Button((small_button_width, 100), (c2_x, h // 5 + 125)),
                         'Wholesale': Button((small_button_width, 100), (c2_x, h // 5 + 250)),
                         'Transportation': Button((small_button_width, 100), (c2_x, h // 5 + 375)),
                         'Finance': Button((small_button_width, 100), (c2_x, h // 5 + 500)),
@@ -95,8 +96,10 @@ class Visual:
                         'Accommodation': Button((small_button_width, 100), (c3_x, h // 5 + 500)),
                         'Other': Button((small_button_width, 100), (c3_x, h // 5 + 625)),
 
-                        'Top Benefit': Button((750, 150), (w // 2 - 50, h // 2 + 50)),
-                        'Top Suffer': Button((750, 150), (w // 2 - 50, h // 2 + 250))
+                        'Top Benefit': Button((500, 150), (w // 3 - 50, h // 2 + 50)),
+                        'Top Suffer': Button((500, 150), (w // 3 - 50, h // 2 + 250)),
+                        'Top Strong': Button((500, 150), (w - w // 3 + 50, h // 2 + 50)),
+                        'Top Weak': Button((500, 150), (w - w // 3 + 50, h // 2 + 250))
                         }
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
@@ -261,15 +264,26 @@ class Visual:
                     association = v.get_struggling_industries()
                     v.display_multiple_associations(association, criteria="Suffered")
 
+                if self.buttons['Top Strong'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    pass
+
+                if self.buttons['Top Weak'].mouse_hover(mouse) and \
+                        event.type == pygame.MOUSEBUTTONDOWN:
+                    pass
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            60, (w // 2, h // 4))
             self.draw_text(self.screen, 'Impact on all industries',
                            60, (w // 2, h // 4 + 70))
 
             self.buttons['Top Benefit'].draw(self.screen, "Top 5 Industries that benefited from "
-                                                          "COVID", 30)
+                                                          "COVID", 20)
             self.buttons['Top Suffer'].draw(self.screen, "Top 5 Industries that suffered from"
-                                                         " COVID", 30)
+                                                         " COVID", 20)
+            self.buttons['Top Strong'].draw(self.screen, "Top 5 industries with strong "
+                                                         "correlations", 20)
+            self.buttons['Top Weak'].draw(self.screen, "Top 5 industries with weak "
+                                                       "correlations", 20)
             self.buttons['back'].draw(self.screen, "Back", 20)
 
             pygame.display.update()  # Refreshes the display
