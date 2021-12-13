@@ -54,7 +54,7 @@ class Visualization:
         industries = []
         for employment_d in employment_data:
             # skip over the total industries b/c they don't count as an industry
-            if 'Total' in employment_d.industry:
+            if 'Total' not in employment_d.industry:
                 # check if the industry provided matches the first letter or matches it with a comma
                 striped_industries = employment_d.industry.replace(',', '')
                 industries.append(striped_industries.split()[0])
