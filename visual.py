@@ -192,8 +192,10 @@ class Visual:
                         # plt.show()
                         # print("Ran Successfully")
             self.draw_text(self.screen,
-                           'CO(VISION): COVID-19’s Impact on employment Impact on Individual '
-                           'Industries', 30, (w // 2, h // 12))
+                           'CO(VISION): COVID-19’s Impact on employment', 30,
+                           (w // 2, h // 12 - 15))
+            self.draw_text(self.screen,
+                           'Impact on Individual Industries', 30, (w // 2, h // 12 + 25))
 
             # Display the buttons
 
@@ -271,9 +273,9 @@ class Visual:
                     v.display_multiple_associations(association, criteria="Weak association")
 
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
-                           60, (w // 2, h // 4))
+                           55, (w // 2, h // 4))
             self.draw_text(self.screen, 'Impact on all industries',
-                           60, (w // 2, h // 4 + 70))
+                           45, (w // 2, h // 4 + 100))
 
             self.buttons['Top Benefit'].draw(self.screen, "Top 5 Industries that benefited from "
                                                           "COVID", 20)
