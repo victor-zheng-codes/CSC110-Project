@@ -7,6 +7,12 @@ import extract as cd
 
 class Visualization:
     """Class for visualizations"""
+    plot: plt
+
+    def __init__(self) -> None:
+        """Initializes the Visualization class and plot variable, and starts up the program.
+        """
+        self.plot = plt
 
     def get_visualization_data(self, industry: str, start_date: Optional[str] = '2020-01',
                                end_date: Optional[str] = '2021-11') -> \
@@ -64,7 +70,7 @@ class Visualization:
         industry_employment_slopes = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
-            m, _ = self.linear_regression_model(c_nums, e_nums)
+            m, _ = linear_regression_model(c_nums, e_nums)
             industry_employment_slopes[industry] = m
 
         top_scores = []
@@ -91,7 +97,7 @@ class Visualization:
         industry_employment_slopes = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
-            m, _ = self.linear_regression_model(c_nums, e_nums)
+            m, _ = linear_regression_model(c_nums, e_nums)
             industry_employment_slopes[industry] = m
 
         lowest_scores = []
@@ -117,7 +123,7 @@ class Visualization:
         industry_correlations = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
-            cor = self.correlation_calculator(c_nums, e_nums)
+            cor = correlation_calculator(c_nums, e_nums)
             # get the absolute value because we are looking for highest association, which could
             # be negative or positive
             industry_correlations[industry] = abs(cor)
@@ -150,7 +156,7 @@ class Visualization:
         industry_correlations = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
-            cor = self.correlation_calculator(c_nums, e_nums)
+            cor = correlation_calculator(c_nums, e_nums)
             industry_correlations[industry] = abs(cor)
 
         print(industry_correlations)
@@ -172,28 +178,28 @@ class Visualization:
 
         # code to visualize
         # set a window size of 10 inches by 5 inches
-        plt.figure(figsize=(12, 6))
+        self.plot.figure(figsize=(12, 6))
 
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
-        plt.title(f"Association of Covid Cases and "
-                  f"top 5 industries with criteria: {criteria}", **font)
-        plt.xlabel("Covid Cases (x1000 people)")
-        plt.ylabel("Employment Data (x1000 people)")
+        self.plot.title(f"Association of Covid Cases and "
+                        f"top 5 industries with criteria: {criteria}", **font)
+        self.plot.xlabel("Covid Cases (x1000 people)")
+        self.plot.ylabel("Employment Data (x1000 people)")
 
         plt_colors = ['green', 'blue', 'red', 'orange', 'brown']
 
         for industry in industries:
             _, employment_numbers, covid_numbers = self.get_visualization_data(industry)
             color = plt_colors[industries.index(industry)]
-            plt.scatter(covid_numbers, employment_numbers, c=color, label=industry)
+            self.plot.scatter(covid_numbers, employment_numbers, c=color, label=industry)
 
-            m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
+            m, b = linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
             self.add_linear_regression_model(m, b, (min(covid_numbers),
                                              max(covid_numbers)), color=color)
 
-        plt.legend(loc='best')
-        plt.show()
+        self.plot.legend(loc='best')
+        self.plot.show()
 
     def display_individual_graphs(self, industry: str, start_date: Optional[str] = '2020-01',
                                   end_date: Optional[str] = '2021-11') -> None:
@@ -209,23 +215,23 @@ class Visualization:
 
         # code to visualize
         # set a window size of 10 inches by 5 inches
-        plt.figure(figsize=(12, 6))
+        self.plot.figure(figsize=(12, 6))
 
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
-        plt.title(f"Association of Covid Cases and {industry} industry "
-                  f"from {start_date} to {end_date}", **font)
-        plt.xlabel("Covid Cases (x1000 people)")
-        plt.ylabel(f"Employment Data for {industry} industry (x1000 people)")
+        self.plot.title(f"Association of Covid Cases and {industry} industry "
+                        f"from {start_date} to {end_date}", **font)
+        self.plot.xlabel("Covid Cases (x1000 people)")
+        self.plot.ylabel(f"Employment Data for {industry} industry (x1000 people)")
 
-        plt.scatter(covid_numbers, employment_numbers, c='darkblue')
+        self.plot.scatter(covid_numbers, employment_numbers, c='darkblue')
 
-        m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
+        m, b = linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
         self.add_linear_regression_model(m, b, (min(covid_numbers), max(covid_numbers)))
-        cor = self.correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
+        cor = correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
         print(f'Correlation of {industry} and COVID cases: ', cor)
-        plt.show()
+        self.plot.show()
 
     def industry_covid_visualization(self, industry: str, start_date: Optional[str] = '2020-01',
                                      end_date: Optional[str] = '2021-11') -> None:
@@ -236,23 +242,25 @@ class Visualization:
             self.get_visualization_data(industry, start_date, end_date)
 
         # set a window size of 10 inches by 6 inches
-        plt.figure(figsize=(12, 6))
+        self.plot.figure(figsize=(12, 6))
 
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
-        plt.title(f"Association of Covid Cases and {industry} industry "
-                  f"from {start_date} to {end_date}", **font)
-        plt.xlabel("Year-Month")
-        plt.ylabel(f"COVID & {industry} industry (x1000 people)")
+        self.plot.title(f"Association of Covid Cases and {industry} industry "
+                        f"from {start_date} to {end_date}", **font)
+        self.plot.xlabel("Year-Month")
+        self.plot.ylabel(f"COVID & {industry} industry (x1000 people)")
 
         # rotate the x ticks so that they are visible
-        plt.xticks(rotation=45)
+        self.plot.xticks(rotation=45)
 
-        plt.scatter(visualization_dates, employment_numbers, c='darkgreen', label='Employment')
-        plt.scatter(visualization_dates, covid_numbers, c='darkblue', label='Covid Cases')
+        self.plot.scatter(visualization_dates, employment_numbers,
+                          c='darkgreen',
+                          label='Employment')
+        self.plot.scatter(visualization_dates, covid_numbers, c='darkblue', label='Covid Cases')
         # find the best position to plot the legend
-        plt.legend(loc='best')
-        plt.show()
+        self.plot.legend(loc='best')
+        self.plot.show()
 
     def add_linear_regression_model(self, m: float, b: float, start_end_x: tuple[float, float],
                                     color: Optional[str] = 'red') -> None:
@@ -261,113 +269,113 @@ class Visualization:
         y_0 = m * start_x + b
         y_1 = m * end_x + b
 
-        plt.plot([start_x, end_x], [y_0, y_1], c=color)
+        self.plot.plot([start_x, end_x], [y_0, y_1], c=color)
 
-    def linear_regression_model(self, x_points: list[float], y_points: list[float]) -> \
-            tuple[float, float]:
-        """Returns a tuple of two integers containing the formula for the linear regression line for
-        the given points using the least least squares regression line formula. The first point is
-        m, the slope of the line. The second point is b, the intercept of the line.
 
-        This helps us form an equaltion using the formula y = mx + b
+def linear_regression_model(x_points: list[float], y_points: list[float]) -> \
+        tuple[float, float]:
+    """Returns a tuple of two integers containing the formula for the linear regression line for
+    the given points using the least least squares regression line formula. The first point is
+    m, the slope of the line. The second point is b, the intercept of the line.
 
-        slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
-        source: https://www.mathsisfun.com/data/least-squares-regression.html
+    This helps us form an equaltion using the formula y = mx + b
 
-        Preconditions:
-            - length of y_points and x_points are the same
+    slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
+    source: https://www.mathsisfun.com/data/least-squares-regression.html
 
-        >>> x_points = [2,3,5,7,9]
-        >>> y_points = [4,5,7,10,15]
-        >>> v = Visualization()
-        >>> m, b = v.linear_regression_model(x_points, y_points)
-        >>> assert round(m, 3) == 1.518
-        >>> assert round(b, 3) == 0.305
-        """
-        n = len(x_points)
+    Preconditions:
+        - length of y_points and x_points are the same
 
-        sum_x = 0
-        sum_x_squared = 0
-        # Calculate the sum for x points and x squared points
-        for val in x_points:
-            sum_x += val
-            sum_x_squared += val ** 2
-        # Calculate the sum for y points
-        sum_y = 0
-        for val in y_points:
-            sum_y += val
-        # Calculate the sum for x points times y points
-        sum_xy = 0
-        for i in range(n):
-            sum_xy += x_points[i] * y_points[i]
+    >>> x_points = [2,3,5,7,9]
+    >>> y_points = [4,5,7,10,15]
+    >>> m, b = linear_regression_model(x_points, y_points)
+    >>> assert round(m, 3) == 1.518
+    >>> assert round(b, 3) == 0.305
+    """
+    n = len(x_points)
 
-        # print(sum_x, sum_y, sum_x_squared, sum_xy)
+    sum_x = 0
+    sum_x_squared = 0
+    # Calculate the sum for x points and x squared points
+    for val in x_points:
+        sum_x += val
+        sum_x_squared += val ** 2
+    # Calculate the sum for y points
+    sum_y = 0
+    for val in y_points:
+        sum_y += val
+    # Calculate the sum for x points times y points
+    sum_xy = 0
+    for i in range(n):
+        sum_xy += x_points[i] * y_points[i]
 
-        m = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x ** 2)
-        b = (sum_y - m * sum_x) / n
+    # print(sum_x, sum_y, sum_x_squared, sum_xy)
 
-        return m, b
+    m = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x ** 2)
+    b = (sum_y - m * sum_x) / n
 
-    def correlation_calculator(self, x_points: list[float], y_points: list[float]) -> float:
-        """Return a correlation of the association between the x and y variables
+    return m, b
 
-        We can use this to judge the association between our x and y variables to determine if
-        we can even use linear regression. Linear regression assumes that there is some sort of
-        association between the x and y variables.
 
-        We will use the Pearson Correlation Coeficient Formula, the most commonly used correlation
-        formula.
+def correlation_calculator(x_points: list[float], y_points: list[float]) -> float:
+    """Return a correlation of the association between the x and y variables
 
-        Sources (cite later): https://www.questionpro.com/blog/pearson-correlation-coefficient/,
-        https://www.wallstreetmojo.com/pearson-correlation-coefficient/
+    We can use this to judge the association between our x and y variables to determine if
+    we can even use linear regression. Linear regression assumes that there is some sort of
+    association between the x and y variables.
 
-        r = (n(Σxy) - (Σx)(Σy)) / ((nΣx^2 - (Σx)^2)(nΣy^2 - (Σy)^2)) ** 0.5
+    We will use the Pearson Correlation Coeficient Formula, the most commonly used correlation
+    formula.
 
-        r = Pearson Coefficient
-        n= number of the pairs of the stock
-        ∑xy = sum of products of the paired scores
-        ∑x = sum of the x scores
-        ∑y= sum of the y scores
-        ∑x^2 = sum of the squared x scores
-        ∑y^2 = sum of the squared y scores
+    Sources (cite later): https://www.questionpro.com/blog/pearson-correlation-coefficient/,
+    https://www.wallstreetmojo.com/pearson-correlation-coefficient/
 
-        Precondition:
-            - Length of x_p and y_p are the same
+    r = (n(Σxy) - (Σx)(Σy)) / ((nΣx^2 - (Σx)^2)(nΣy^2 - (Σy)^2)) ** 0.5
 
-        >>> x_p = [6,8,10]
-        >>> y_p = [12,10,20]
-        >>> v = Visualization()
-        >>> round(v.correlation_calculator(x_p, y_p), 4) == 0.7559
-        True
-        """
-        # calculate n, the number of pairs
-        n = len(x_points)
+    r = Pearson Coefficient
+    n= number of the pairs of the stock
+    ∑xy = sum of products of the paired scores
+    ∑x = sum of the x scores
+    ∑y= sum of the y scores
+    ∑x^2 = sum of the squared x scores
+    ∑y^2 = sum of the squared y scores
 
-        # Calculate the sum for x points and x squared points
-        sum_x = 0
-        sum_x_squared = 0
-        for val in x_points:
-            sum_x += val
-            sum_x_squared += val ** 2
+    Precondition:
+        - Length of x_p and y_p are the same
 
-        # Calculate the sum for y points and y squared poionts
-        sum_y = 0
-        sum_y_squared = 0
-        for val in y_points:
-            sum_y += val
-            sum_y_squared += val ** 2
+    >>> x_p = [6,8,10]
+    >>> y_p = [12,10,20]
+    >>> round(correlation_calculator(x_p, y_p), 4) == 0.7559
+    True
+    """
+    # calculate n, the number of pairs
+    n = len(x_points)
 
-        # Calculate the sum for x points times y points
-        sum_xy = 0
-        for i in range(n):
-            sum_xy += x_points[i] * y_points[i]
+    # Calculate the sum for x points and x squared points
+    sum_x = 0
+    sum_x_squared = 0
+    for val in x_points:
+        sum_x += val
+        sum_x_squared += val ** 2
 
-        # print(sum_x, sum_y, sum_x_squared, sum_y_squared, sum_xy)
-        numer = (n * sum_xy - sum_x * sum_y)
-        denom = ((n * sum_x_squared - sum_x ** 2) * (n * sum_y_squared - sum_y ** 2)) ** 0.5
-        r = numer / denom
+    # Calculate the sum for y points and y squared poionts
+    sum_y = 0
+    sum_y_squared = 0
+    for val in y_points:
+        sum_y += val
+        sum_y_squared += val ** 2
 
-        return r
+    # Calculate the sum for x points times y points
+    sum_xy = 0
+    for i in range(n):
+        sum_xy += x_points[i] * y_points[i]
+
+    # print(sum_x, sum_y, sum_x_squared, sum_y_squared, sum_xy)
+    numer = (n * sum_xy - sum_x * sum_y)
+    denom = ((n * sum_x_squared - sum_x ** 2) * (n * sum_y_squared - sum_y ** 2)) ** 0.5
+    r = numer / denom
+
+    return r
 
 
 if __name__ == "__main__":
