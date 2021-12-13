@@ -283,7 +283,7 @@ def linear_regression_model(x_points: list[float], y_points: list[float]) -> \
     the given points using the least least squares regression line formula. The first point is
     m, the slope of the line. The second point is b, the intercept of the line.
 
-    This helps us form an equaltion using the formula y = mx + b
+    This helps us form an equation using the formula y = mx + b
 
     slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
     source: https://www.mathsisfun.com/data/least-squares-regression.html
