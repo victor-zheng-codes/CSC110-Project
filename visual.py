@@ -14,10 +14,9 @@ expressly prohibited.
 
 This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
 """
-from sys import exit
+import sys
 import random
 import pygame
-import matplotlib.pyplot as plt
 
 from visualizations import Visualization
 from button import Button
@@ -126,7 +125,7 @@ class Visual:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    exit()
+                    sys.exit()
                 if self.buttons['individual'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.individual()
@@ -169,7 +168,8 @@ class Visual:
             mouse = pygame.mouse.get_pos()  # Tracks the mouse and its interactions with events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.start_menu()
+                    pygame.quit()
+                    sys.exit()
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
@@ -243,7 +243,7 @@ class Visual:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-                    exit()
+                    sys.exit()
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
@@ -271,6 +271,7 @@ class Visual:
                 if self.buttons['Top Weak'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     pass
+
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            60, (w // 2, h // 4))
             self.draw_text(self.screen, 'Impact on all industries',
@@ -299,7 +300,8 @@ if __name__ == '__main__':
 
     python_ta.check_all(config={
         'allowed-io': ['run_example'],
-        'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random'],
+        'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random',
+                          'visualizations'],
         'max-line-length': 100,
         'disable': ['R1705', 'C0200'],
         'generated-members': ['pygame.*']
