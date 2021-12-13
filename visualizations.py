@@ -23,7 +23,7 @@ class Visualization:
     covid_data: list[cd.CovidData]
 
     def __init__(self) -> None:
-        """Initializes the Visualization class and plot variable, and starts up the program.
+        """Initializes the Visualization class and plot variable.
         """
         self.plot = plt
         self.employment_data = cd.add_employment_data()
