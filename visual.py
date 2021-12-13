@@ -269,7 +269,6 @@ class Visual:
                     association = v.get_worst_association()
                     v.display_multiple_associations(association, criteria="Worst Association")
 
-
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
                            60, (w // 2, h // 4))
             self.draw_text(self.screen, 'Impact on all industries',
