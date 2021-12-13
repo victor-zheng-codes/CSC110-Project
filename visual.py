@@ -53,7 +53,7 @@ class Visual:
         # Initialize all imported pygame modules
         pygame.init()
         # Initialize the font
-        self.font_name = "M1PRegular-R3wv.ttf"
+        self.font_name = "project_font.ttf"
         # Initialize the dimension for the screen as (width, height)
         self.dimension = (1600, 1000)
         # Assigns the variables w, h to the elements in dimension
@@ -348,7 +348,7 @@ class Visual:
                     # visualization class
                     association = v.get_best_association()
                     # Displays the graph of 5 industries with the highest correlations
-                    v.display_multiple_associations(association, criteria="Strong association")
+                    v.display_multiple_associations(association, criteria="Strong correlations")
 
                 # Tracks if the mouse clicks on the Top Weak button
                 if self.buttons['Top Weak'].mouse_hover(mouse) and \
@@ -357,7 +357,7 @@ class Visual:
                     # visualization class
                     association = v.get_worst_association()
                     # Displays the graph of 5 industries with the smallest correlations
-                    v.display_multiple_associations(association, criteria="Weak association")
+                    v.display_multiple_associations(association, criteria="Weak correlations")
 
             # Draws text using the draw_text function
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
