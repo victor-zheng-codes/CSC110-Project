@@ -75,14 +75,14 @@ class Visual:
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
 
                         'Total': Button((small_button_width, 100), (c1_x, h // 5)),
-                        'Goods': Button((small_button_width, 100), (c1_x, h // 5 + 125)),
+                        'Goods-producing': Button((small_button_width, 100), (c1_x, h // 5 + 125)),
                         'Agriculture': Button((small_button_width, 100), (c1_x, h // 5 + 250)),
                         'Forestry': Button((small_button_width, 100), (c1_x, h // 5 + 375)),
                         'Utilities': Button((small_button_width, 100), (c1_x, h // 5 + 500)),
                         'Construction': Button((small_button_width, 100), (c1_x, h // 5 + 625)),
 
                         'Manufacturing': Button((small_button_width, 100), (c2_x, h // 5)),
-                        'Services': Button((small_button_width, 100), (c2_x, h // 5 + 125)),
+                        'Services-producing': Button((small_button_width, 100), (c2_x, h // 5 + 125)),
                         'Wholesale': Button((small_button_width, 100), (c2_x, h // 5 + 250)),
                         'Transportation': Button((small_button_width, 100), (c2_x, h // 5 + 375)),
                         'Finance': Button((small_button_width, 100), (c2_x, h // 5 + 500)),
@@ -171,8 +171,8 @@ class Visual:
                         event.type == pygame.MOUSEBUTTONDOWN:
                     self.start_menu()
 
-                industries = ['Total', 'Goods', 'Agriculture', 'Forestry', 'Utilities',
-                              'Construction', 'Manufacturing', 'Services', 'Wholesale',
+                industries = ['Total', 'Goods-producing', 'Agriculture', 'Forestry', 'Utilities',
+                              'Construction', 'Manufacturing', 'Services-producing', 'Wholesale',
                               'Transportation', 'Finance', 'Professional', 'Business',
                               'Educational', 'Health', 'Information', 'Accommodation',
                               'Other']
@@ -196,7 +196,7 @@ class Visual:
             # Column 1
             self.buttons['Total'].draw(self.screen, 'Total employed, '
                                                     'all industries', 15)
-            self.buttons['Goods'].draw(self.screen, 'Goods-producing sector', 15)
+            self.buttons['Goods-producing'].draw(self.screen, 'Goods-producing sector', 15)
             self.buttons['Agriculture'].draw(self.screen, 'Agriculture', 15)
             self.buttons['Forestry'].draw(
                 self.screen, 'Forestry, fishing, mining, quarrying, oil and gas', 15)
@@ -206,7 +206,7 @@ class Visual:
             # column 2
 
             self.buttons['Manufacturing'].draw(self.screen, 'Manufacturing', 15)
-            self.buttons['Services'].draw(self.screen, 'Services-producing sector', 15)
+            self.buttons['Services-producing'].draw(self.screen, 'Services-producing sector', 15)
             self.buttons['Wholesale'].draw(self.screen, 'Wholesale and retail trade', 15)
             self.buttons['Transportation'].draw(self.screen, 'Transportation and warehousing', 15)
             self.buttons['Finance'].draw(self.screen, 'Finance, insurance, real estate, rental and '
