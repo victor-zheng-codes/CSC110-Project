@@ -22,7 +22,7 @@ class Button:
 
     Instance Attributes:
         - colours: a list of rgb colour codes
-        - colour: an rgb colour code
+        - colour: an rgb colour code (e.g., (63, 30, 43))
         - dimension: the dimension of the screen in (width, height)
         - position: the position of an object on the screen (x, y)
         - font_name: the name of our pygame font

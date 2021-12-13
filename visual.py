@@ -49,10 +49,11 @@ class Visual:
 
     def __init__(self) -> None:
         """Initializes the visual class and its variables, and starts up the program.
+        Uses the class Buttons.
         """
         pygame.init()
-        self.font_name = "M1PRegular-R3wv.ttf"
-        self.dimension = (1600, 1000)
+        self.font_name = "M1PRegular-R3wv.ttf"  # Sets up the font
+        self.dimension = (1600, 1000)  # Sets the dimension for the screen (width, height)
         w, h = self.dimension
         self.screen = pygame.display.set_mode((w, h))
 
@@ -68,6 +69,7 @@ class Visual:
         c2_x = w // 2  # column_2's x position
         c3_x = w // 2 + w // 4 + 50  # column_3's x position
 
+        # Position of buttons on the screen
         self.buttons = {'back': Button((100, 50), (50, 25)),
                         'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 200)),
@@ -277,5 +279,6 @@ if __name__ == '__main__':
         'allowed-io': ['run_example'],
         'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random'],
         'max-line-length': 100,
-        'disable': ['R1705', 'C0200']
+        'disable': ['R1705', 'C0200'],
+        'generated-members': ['pygame.*']
     })
