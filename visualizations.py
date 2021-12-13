@@ -53,9 +53,11 @@ class Visualization:
 
         industries = []
         for employment_d in employment_data:
-            # check if the industry provided matches the first letter or matches it with a comma
-            striped_industries = employment_d.industry.replace(',', '')
-            industries.append(striped_industries.split()[0])
+            # skip over the total industries b/c they don't count as an industry
+            if 'Total' not in employment_d.industry:
+                # check if the industry provided matches the first letter or matches it with a comma
+                striped_industries = employment_d.industry.replace(',', '')
+                industries.append(striped_industries.split()[0])
 
         industry_employment_slopes = {}
         for industry in industries:
@@ -78,9 +80,11 @@ class Visualization:
 
         industries = []
         for employment_d in employment_data:
-            # check if the industry provided matches the first letter or matches it with a comma
-            striped_industries = employment_d.industry.replace(',', '')
-            industries.append(striped_industries.split()[0])
+            # skip over the total industries b/c they don't count as an industry
+            if 'Total' not in employment_d.industry:
+                # check if the industry provided matches the first letter or matches it with a comma
+                striped_industries = employment_d.industry.replace(',', '')
+                industries.append(striped_industries.split()[0])
 
         industry_employment_slopes = {}
         for industry in industries:
@@ -103,9 +107,10 @@ class Visualization:
 
         industries = []
         for employment_d in employment_data:
-            # check if the industry provided matches the first letter or matches it with a comma
-            striped_industries = employment_d.industry.replace(',', '')
-            industries.append(striped_industries.split()[0])
+            if 'Total' not in employment_d.industry:
+                # check if the industry provided matches the first letter or matches it with a comma
+                striped_industries = employment_d.industry.replace(',', '')
+                industries.append(striped_industries.split()[0])
 
         industry_correlations = {}
         for industry in industries:
@@ -135,9 +140,10 @@ class Visualization:
 
         industries = []
         for employment_d in employment_data:
-            # check if the industry provided matches the first letter or matches it with a comma
-            striped_industries = employment_d.industry.replace(',', '')
-            industries.append(striped_industries.split()[0])
+            if 'Total' not in employment_d.industry:
+                # check if the industry provided matches the first letter or matches it with a comma
+                striped_industries = employment_d.industry.replace(',', '')
+                industries.append(striped_industries.split()[0])
 
         industry_correlations = {}
         for industry in industries:
