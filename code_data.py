@@ -8,9 +8,9 @@ class Employed:
     """Employment numbers every month
 
     Instance Attributes:
-        - industry: the industry (e.g., 'Agriculture')
-        - employment: a list containing the number of employed in thousands
-        - date: a list containing the dates for the employment numbers (e.g., '2020-10')
+        - industry: the name of the industry as a string (e.g., 'Agriculture')
+        - employment: a list containing the number of employees employed in thousands as a float
+        - date: a list containing the dates for the employment numbers as a string (e.g., '2020-10')
     """
     industry: str
     employment: list[float]
@@ -22,8 +22,9 @@ class CovidData:
     """Covid data by month
 
     Instance Attributes:
-        - date: the date (e.g., '2020-03') the data is for
-        - cases: the number of cases representing the case
+        - date: the date formatted as a string (e.g., '2020-03') that corresponds to the number of \
+        cases during that month
+        - cases: the number of cases as an integer representing the number of cases during that month
     """
     date: str
     cases: int
