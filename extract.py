@@ -1,4 +1,4 @@
-"""Dataclass to encapsulate data"""
+"""Dataclass to extract data into dataclasses"""
 from dataclasses import dataclass
 import csv
 
