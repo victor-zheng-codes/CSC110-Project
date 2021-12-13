@@ -289,7 +289,7 @@ def linear_regression_model(x_points: list[float], y_points: list[float]) -> \
     source: https://www.mathsisfun.com/data/least-squares-regression.html
 
     Preconditions:
-        - length of y_points and x_points are the same
+        - len(x_points) == len(y_points)
 
     >>> x_points = [2,3,5,7,9]
     >>> y_points = [4,5,7,10,15]
@@ -345,8 +345,8 @@ def correlation_calculator(x_points: list[float], y_points: list[float]) -> floa
     ∑x^2 = sum of the squared x scores
     ∑y^2 = sum of the squared y scores
 
-    Precondition:
-        - Length of x_p and y_p are the same
+    Preconditions:
+        - len(x_points) == len(y_points)
 
     >>> x_p = [6,8,10]
     >>> y_p = [12,10,20]
