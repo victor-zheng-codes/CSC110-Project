@@ -9,7 +9,7 @@ class Visualization:
 
     def get_visualization_data(self, industry: str, start_date='2020-01', end_date='2021-11') -> \
             list[list[str], list[float], list[float]]:
-        """Return the visualization months, covid_numbers, and employment numbers
+        """Return the visualization months, employment numbers, and covid numbers
         for the correct time period. Time period is from Jan 2020 to Nov 2021 if it is not provided
         """
 
@@ -57,23 +57,19 @@ class Visualization:
             striped_industries = employment_d.industry.replace(',', '')
             industries.append(striped_industries.split()[0])
 
-        industry_employment = {}
+        industry_employment_slopes = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
-            m, b = self.linear_regression_model(c_nums, e_nums)
-            industry_employment[industry] = m
+            m, _ = self.linear_regression_model(c_nums, e_nums)
+            industry_employment_slopes[industry] = m
 
         top_scores = []
         for _ in range(5):
-            highest_score = max(industry_employment, key=industry_employment.get)
-            industry_employment.pop(highest_score)
+            highest_score = max(industry_employment_slopes, key=industry_employment_slopes.get)
+            industry_employment_slopes.pop(highest_score)
             top_scores.append(highest_score)
 
         return top_scores
-
-    def display_best_association(self) -> None:
-        """Displays a visualization of the industries with the highest correlations (cor closest to
-        plus or minus 1)"""
 
     def get_struggling_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (negative)
@@ -86,24 +82,106 @@ class Visualization:
             striped_industries = employment_d.industry.replace(',', '')
             industries.append(striped_industries.split()[0])
 
-        industry_employment = {}
+        industry_employment_slopes = {}
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
-            m, b = self.linear_regression_model(c_nums, e_nums)
-            industry_employment[industry] = m
+            m, _ = self.linear_regression_model(c_nums, e_nums)
+            industry_employment_slopes[industry] = m
 
         lowest_scores = []
         for _ in range(5):
-            highest_score = min(industry_employment, key=industry_employment.get)
-            industry_employment.pop(highest_score)
+            highest_score = min(industry_employment_slopes, key=industry_employment_slopes.get)
+            industry_employment_slopes.pop(highest_score)
             lowest_scores.append(highest_score)
 
         return lowest_scores
 
-    def display_worst_correlation(self) -> None:
-        """Displays a visualization of the 5 industries with the worst correlation scores. (cor
-        closest to zero)
-        """
+    def get_best_association(self) -> list[str]:
+        """Returns the 5 industries with the highest correlations (cor closest to
+        plus or minus 1)"""
+        employment_data = cd.add_employment_data()
+
+        industries = []
+        for employment_d in employment_data:
+            # check if the industry provided matches the first letter or matches it with a comma
+            striped_industries = employment_d.industry.replace(',', '')
+            industries.append(striped_industries.split()[0])
+
+        industry_correlations = {}
+        for industry in industries:
+            _, e_nums, c_nums = self.get_visualization_data(industry)
+            cor = self.correlation_calculator(c_nums, e_nums)
+            # get the absolute value because we are looking for highest association, which could
+            # be negative or positive
+            industry_correlations[industry] = abs(cor)
+
+        print(industry_correlations)
+
+        # calculate the 5 highest correlations in the dictionary
+        highest_cor = []
+        for _ in range(5):
+            # use the key tool to get the iterable
+            highest_score = max(industry_correlations, key=industry_correlations.get)
+            # remove the highest score from the dictionary
+            industry_correlations.pop(highest_score)
+            # append the name of the highest score into the dictionary
+            highest_cor.append(highest_score)
+
+        return highest_cor
+
+    def get_worst_association(self) -> list[str]:
+        """Returns the 5 industries with the smallest correlations (cor closest to zero)"""
+        employment_data = cd.add_employment_data()
+
+        industries = []
+        for employment_d in employment_data:
+            # check if the industry provided matches the first letter or matches it with a comma
+            striped_industries = employment_d.industry.replace(',', '')
+            industries.append(striped_industries.split()[0])
+
+        industry_correlations = {}
+        for industry in industries:
+            _, e_nums, c_nums = self.get_visualization_data(industry)
+            cor = self.correlation_calculator(c_nums, e_nums)
+            industry_correlations[industry] = abs(cor)
+
+        print(industry_correlations)
+
+        # calculate the 5 lowest correlations in the dictionary
+        lowest_correlations = []
+        for _ in range(5):
+            # use the key tool to get the iterable
+            highest_score = min(industry_correlations, key=industry_correlations.get)
+            # remove the highest score from the dictionary
+            industry_correlations.pop(highest_score)
+            # append the name of the highest score into the dictionary
+            lowest_correlations.append(highest_score)
+
+        return lowest_correlations
+
+    def display_multiple_associations(self, industries: list[str], criteria: str) -> None:
+        """Displays more than 1 scatterplot on top of one another industries provided"""
+
+        # code to visualize
+        # set a window size of 10 inches by 5 inches
+        plt.figure(figsize=(12, 6))
+
+        # set customizations for design of our visualization
+        font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
+        plt.title(f"Association of Covid Cases and top 5 industries with criteria: {criteria}", **font)
+        plt.xlabel("Covid Cases (x1000 people)")
+        plt.ylabel(f"Employment Data (x1000 people)")
+
+        plt_colors = ['green', 'blue', 'red', 'orange', 'brown']
+
+        for industry in industries:
+            _, employment_numbers, covid_numbers = self.get_visualization_data(industry)
+            plt.scatter(covid_numbers, employment_numbers, c=plt_colors[industries.index(industry)])
+
+            m, b = self.linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
+            self.add_linear_regression_model(m, b, min(covid_numbers), max(covid_numbers))
+
+        plt.show()
 
     def display_individual_graphs(self, industry: str, start_date='2020-01', end_date='2021-11') -> None:
         """Display individual graph of COVID and industry relationship with linear regression
@@ -164,7 +242,6 @@ class Visualization:
         y_1 = m * end_x + b
 
         plt.plot([start_x, end_x], [y_0, y_1], label='linear regression line', c='red')
-        plt.show()
 
     def linear_regression_model(self, x_points: list[float], y_points: list[float]) -> tuple[float, float]:
         """Returns a tuple of two integers containing the formula for the linear regression line for the
@@ -181,7 +258,8 @@ class Visualization:
 
         >>> x_points = [2,3,5,7,9]
         >>> y_points = [4,5,7,10,15]
-        >>> m, b = self.linear_regression_model(x_points, y_points)
+        >>> v = Visualization()
+        >>> m, b = v.linear_regression_model(x_points, y_points)
         >>> assert round(m, 3) == 1.518
         >>> assert round(b, 3) == 0.305
         """
@@ -237,7 +315,8 @@ class Visualization:
 
         >>> x_p = [6,8,10]
         >>> y_p = [12,10,20]
-        >>> round(self.correlation_calculator(x_p, y_p), 4) == 0.7559
+        >>> v = Visualization()
+        >>> round(v.correlation_calculator(x_p, y_p), 4) == 0.7559
         True
         """
         # calculate n, the number of pairs
@@ -274,7 +353,8 @@ if __name__ == "__main__":
     # test code for display_individual_graphs()
     v = Visualization()
     # v.display_individual_graphs("Utilities")
-    print(v.get_struggling_industries())
+    association = v.get_worst_association()
+    v.display_multiple_associations(association, 'Worst Association')
     # testing code for industry_covid_visualization()
     # industry_covid_visualization("Utilities", '2020-01', '2021-05')
 
