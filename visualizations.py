@@ -285,8 +285,8 @@ def linear_regression_model(x_points: list[float], y_points: list[float]) -> \
 
     This helps us form an equation using the formula y = mx + b
 
-    slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
-    source: https://www.mathsisfun.com/data/least-squares-regression.html
+    The Least Squares Linear Regression Line formula is as follows:
+        - slope m = (N Σ(xy) − Σx Σy) / (N Σ(x**2) − (Σx)**2), where N is the number of points
 
     Preconditions:
         - len(x_points) == len(y_points)
@@ -330,12 +330,8 @@ def correlation_calculator(x_points: list[float], y_points: list[float]) -> floa
     association between the x and y variables.
 
     We will use the Pearson Correlation Coeficient Formula, the most commonly used correlation
-    formula.
-
-    Sources (cite later): https://www.questionpro.com/blog/pearson-correlation-coefficient/,
-    https://www.wallstreetmojo.com/pearson-correlation-coefficient/
-
-    r = (n(Σxy) - (Σx)(Σy)) / ((nΣx^2 - (Σx)^2)(nΣy^2 - (Σy)^2)) ** 0.5
+    formula. The formula is as follows:
+        - r = (n(Σxy) - (Σx)(Σy)) / ((nΣx^2 - (Σx)^2)(nΣy^2 - (Σy)^2)) ** 0.5
 
     r = Pearson Coefficient
     n= number of the pairs of the stock
