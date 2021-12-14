@@ -18,13 +18,13 @@ import pygame
 
 
 class Button:
-    """Defines objects which a user can interactive to perform a particular action.
+    """Defines objects which a user can interactive with to perform a particular action.
 
     Instance Attributes:
         - colours: a list of rgb colour codes
         - colour: an rgb colour code (e.g., (63, 30, 43))
-        - dimension: the dimension of the screen in (width, height)
-        - position: the position of an object on the screen (x, y)
+        - dimension: the dimension of the button in (width, height)
+        - position: the position of the button on the screen (x, y)
         - font_name: the name of our pygame font
 
     Representation Invariants:
@@ -33,6 +33,9 @@ class Button:
         - all(0 <= value[2] <= 255 for value in self.colours)
         - all(0 <= value <= 255 for value in self.colour)
         - all(num >= 0 for num in self.dimensions)
+        - self.font_name[-4:] == ".ttf"
+        - self.position[0] >=0 and self.position[1] >=0
+        - self.dimension[0] >=0 and self.dimension[1] >=0
     """
     colours: list[tuple[int, int, int]]
     colour: tuple[int, int, int]
@@ -41,11 +44,7 @@ class Button:
     font_name: str
 
     def __init__(self, dimension: tuple[int, int], position: tuple[int, int]) -> None:
-        """Initializes the Button class its following variables.
-
-        Preconditions:
-            - position != ()
-            - dimension != ()
+        """Initializes the Button class and its following variables.
         """
         # Initialize the colours for the button
         self.colours = [(240, 240, 240), (200, 200, 200)]
@@ -59,7 +58,7 @@ class Button:
         self.font_name = "project_font.ttf"
 
     def draw(self, surface: pygame.display, text: str, size: int) -> None:
-        """Draws the button onto a display.
+        """Draws a button with custom text and size onto a surface.
 
         Preconditions:
             - size > 0
@@ -89,7 +88,7 @@ class Button:
         x, _ = self.position
         # Takes the width of the dimension
         w, _ = self.dimension
-        # Calculates and returns the buttons x position
+        # Calculates and returns the buttons x positions
         return x - w // 2, x + w // 2
 
     def get_y_pos(self) -> tuple[int, int]:
@@ -99,7 +98,7 @@ class Button:
         _, y = self.position
         # Takes the height of the dimension
         _, h = self.dimension
-        # Calculates and returns the buttons y position
+        # Calculates and returns the buttons y positions
         return y - h // 2, y + h // 2
 
     def mouse_hover(self, mouse: pygame.mouse) -> bool:

@@ -1,16 +1,38 @@
-"""Dataclass to extract data into dataclasses"""
+"""CSC110 Fall 2021 Final Project Data Extraction
+
+File Description
+===============================
+This file contains the classes responsible for extracting and transforming data from the filtered
+csv files to their corresponding data classes.
+
+Copyright and Usage Information
+===============================
+This file is provided solely for the personal and private use of students, TA, and professors
+within the CSC110 at the University of Toronto St. George campus. All forms of
+distribution of this code, whether as given or with any changes, are
+expressly prohibited.
+
+This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
+"""
 from dataclasses import dataclass
 import csv
 
 
 @dataclass
 class Employed:
-    """Employment numbers every month
+    """A data class representing the number of employment in an industry per month for a range
+    of months
 
     Instance Attributes:
         - industry: the name of the industry as a string (e.g., 'Agriculture')
         - employment: a list containing the number of employees employed in thousands as a float
         - date: a list containing the dates for the employment numbers as a string (e.g., '2020-10')
+
+    Representation Invariants:
+      - self.employment != {}
+      - self.date != {}
+      - len(self.date) == len(self.employment)
+      - len(self.industry) > 0
     """
     industry: str
     employment: list[float]
@@ -19,12 +41,16 @@ class Employed:
 
 @dataclass
 class CovidData:
-    """Covid data by month
+    """A data class representing the number of covid cases in a specific month.
 
     Instance Attributes:
         - date: the date formatted as a string (e.g., '2020-03') that corresponds to the number of \
         cases during that month
         - cases: the number of cases as an integer representing the number of cases during that month
+
+    Representation Invariants:
+      - len(self.data) == 7
+      - self.cases >= 0
     """
     date: str
     cases: int
