@@ -63,7 +63,7 @@ class Visualization:
 
     def get_visualization_data(self, industry: str, start_date: Optional[str] = '2020-01',
                                end_date: Optional[str] = '2021-11') -> \
-            list[list[str], list[float], list[float]]:
+            tuple[list[str], list[float], list[float]]:
         """Return the visualization months, employment numbers, and covid numbers
         for the correct time period. Time period is from Jan 2020 to Nov 2021 if it is not provided
         """
@@ -95,7 +95,7 @@ class Visualization:
         # calculate the covid numbers based on the correct index
         covid_numbers = covid_rates[covid_dates.index(start_date): covid_dates.index(end_date)]
 
-        return [visualization_period, employment_numbers, covid_numbers]
+        return visualization_period, employment_numbers, covid_numbers
 
     def get_benefited_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (positive)
