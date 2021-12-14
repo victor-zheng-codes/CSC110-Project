@@ -45,6 +45,22 @@ class Visualization:
         self.employment_data = cd.add_employment_data()
         self.covid_data = cd.add_covid_data()
 
+    def get_industry_name(self, shortened_industry: str) -> str:
+        """Returns a string industry name in its longer form
+
+        >>> v = Visualization()
+        >>> v.get_industry_name('Total')
+        'Total employed, all industries'
+        """
+        # update label from input industry name to the actual name
+        industry_label = ''
+        for indus in self.employment_data:
+            indus_no_commas = indus.industry.replace(',', '')
+            if indus_no_commas.split()[0] == shortened_industry:
+                industry_label = indus.industry
+
+        return industry_label
+
     def get_visualization_data(self, industry: str, start_date: Optional[str] = '2020-01',
                                end_date: Optional[str] = '2021-11') -> \
             list[list[str], list[float], list[float]]:
@@ -104,7 +120,7 @@ class Visualization:
         for _ in range(5):
             industry = max(industry_employment_slopes, key=industry_employment_slopes.get)
             slope = industry_employment_slopes.pop(industry)
-            print(f'{industry} industry\'s slope is {slope}')
+            print(f'{self.get_industry_name(industry)} industry\'s slope is {slope}')
             top_scores.append(industry)
 
         print('')
@@ -134,7 +150,7 @@ class Visualization:
         for _ in range(5):
             industry = min(industry_employment_slopes, key=industry_employment_slopes.get)
             slope = industry_employment_slopes.pop(industry)
-            print(f'{industry} industry\'s slope is {slope}')
+            print(f'{self.get_industry_name(industry)} industry\'s slope is {slope}')
             lowest_scores.append(industry)
 
         print('')
@@ -170,7 +186,7 @@ class Visualization:
             industry = max(industry_correlations, key=industry_correlations.get)
             # remove the highest score from the dictionary
             score = industry_correlations.pop(industry)
-            print(f'{industry} industry\'s correlation is {score}')
+            print(f'{self.get_industry_name(industry)} industry\'s correlation is {score}')
             # append the name of the highest score into the dictionary
             highest_cor.append(industry)
 
@@ -203,7 +219,7 @@ class Visualization:
             industry = min(industry_correlations, key=industry_correlations.get)
             # remove the highest score from the dictionary
             score = industry_correlations.pop(industry)
-            print(f'{industry} industry\'s correlation is {score}')
+            print(f'{self.get_industry_name(industry)} industry\'s correlation is {score}')
             # append the name of the highest score into the dictionary
             lowest_correlations.append(industry)
 
@@ -220,10 +236,7 @@ class Visualization:
         # update label from input industry name to the acutal name
         industry_labels = []
         for industry in industries:
-            for indus in self.employment_data:
-                indus_no_commas = indus.industry.replace(',', '')
-                if indus_no_commas.split()[0] == industry:
-                    industry_labels.append(indus.industry)
+            industry_labels.append(self.get_industry_name(industry))
 
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
@@ -263,12 +276,8 @@ class Visualization:
         # set a window size of 10 inches by 5 inches
         self.plot.figure(figsize=(13, 9))
 
-        # update label from input industry name to the acutal name
-        industry_label = ''
-        for indus in self.employment_data:
-            indus_no_commas = indus.industry.replace(',', '')
-            if indus_no_commas.split()[0] == industry:
-                industry_label = indus.industry
+        # update the industry label to the longer one
+        industry_label = self.get_industry_name(industry)
 
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
@@ -284,8 +293,8 @@ class Visualization:
         cor = correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
         print("Individual graph button pressed...")
-        print(f'Correlation of {industry_label} and COVID cases: ', cor)
-        print(f'Linear regression model for {industry_label} and COVID cases has a slope of: {m} and an '
+        print(f'Correlation of {industry_label} industry and COVID cases: ', cor)
+        print(f'The Linear regression model for {industry_label} industry and COVID cases has a slope of: {m} and an '
               f'intercept of {b}\n')
 
         self.plot.show()
@@ -300,15 +309,10 @@ class Visualization:
         visualization_dates, employment_numbers, covid_numbers = \
             self.get_visualization_data(industry, start_date, end_date)
 
+        industry_label = self.get_industry_name(industry)
+
         # set a window size of 10 inches by 6 inches
         self.plot.figure(figsize=(13, 8))
-
-        # update label from input industry name to the acutal name
-        industry_label = ''
-        for indus in self.employment_data:
-            indus_no_commas = indus.industry.replace(',', '')
-            if indus_no_commas.split()[0] == industry:
-                industry_label = indus.industry
 
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}

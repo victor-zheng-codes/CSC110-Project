@@ -20,6 +20,6 @@ if __name__ == '__main__':
     import filter
     from visual import Visual
     # filter.filter_covid()
-    filter.filter_employment_data()
+    # filter.filter_employment_data()
     program = Visual()
     program.start_menu()
