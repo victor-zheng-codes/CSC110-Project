@@ -19,7 +19,7 @@ This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and V
 if __name__ == '__main__':
     import filter
     from visual import Visual
-    # filter.filter_covid()
-    # filter.filter_employment_data()
+    filter.filter_covid()
+    filter.filter_employment_data()
     program = Visual()
     program.start_menu()
