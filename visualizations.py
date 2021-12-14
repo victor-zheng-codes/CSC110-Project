@@ -217,6 +217,14 @@ class Visualization:
         # set a window size of 10 inches by 5 inches
         self.plot.figure(figsize=(12, 6))
 
+        # update label from input industry name to the acutal name
+        industry_labels = []
+        for industry in industries:
+            for indus in self.employment_data:
+                indus_no_commas = indus.industry.replace(',', '')
+                if indus_no_commas.split()[0] == industry:
+                    industry_labels.append(indus.industry)
+
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
         self.plot.title(f"Association of Covid Cases and "
@@ -228,8 +236,9 @@ class Visualization:
 
         for industry in industries:
             _, employment_numbers, covid_numbers = self.get_visualization_data(industry)
-            color = plt_colors[industries.index(industry)]
-            self.plot.scatter(covid_numbers, employment_numbers, c=color, label=industry)
+            i = industries.index(industry)
+            color = plt_colors[i]
+            self.plot.scatter(covid_numbers, employment_numbers, c=color, label=industry_labels[i])
 
             m, b = linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
             self.display_linear_regression(m, b, (min(covid_numbers),
@@ -254,12 +263,19 @@ class Visualization:
         # set a window size of 10 inches by 5 inches
         self.plot.figure(figsize=(12, 6))
 
+        # update label from input industry name to the acutal name
+        industry_label = ''
+        for indus in self.employment_data:
+            indus_no_commas = indus.industry.replace(',', '')
+            if indus_no_commas.split()[0] == industry:
+                industry_label = indus.industry
+
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
-        self.plot.title(f"Association of Covid Cases and {industry} industry "
+        self.plot.title(f"Association of Covid Cases and {industry_label} industry "
                         f"from {start_date} to {end_date}", **font)
         self.plot.xlabel("Covid Cases (x1000 people)")
-        self.plot.ylabel(f"Employment Data for {industry} industry (x1000 people)")
+        self.plot.ylabel(f"Employment Data for {industry_label} industry (x1000 people)")
 
         self.plot.scatter(covid_numbers, employment_numbers, c='darkblue')
 
@@ -268,8 +284,8 @@ class Visualization:
         cor = correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
         print("Individual graph button pressed...")
-        print(f'Correlation of {industry} and COVID cases: ', cor)
-        print(f'Linear regression model for {industry} and COVID cases has a slope of: {m} and an '
+        print(f'Correlation of {industry_label} and COVID cases: ', cor)
+        print(f'Linear regression model for {industry_label} and COVID cases has a slope of: {m} and an '
               f'intercept of {b}\n')
 
         self.plot.show()
@@ -287,12 +303,19 @@ class Visualization:
         # set a window size of 10 inches by 6 inches
         self.plot.figure(figsize=(12, 6))
 
+        # update label from input industry name to the acutal name
+        industry_label = ''
+        for indus in self.employment_data:
+            indus_no_commas = indus.industry.replace(',', '')
+            if indus_no_commas.split()[0] == industry:
+                industry_label = indus.industry
+
         # set customizations for design of our visualization
         font = {'fontname': 'Poppins', 'family': 'sans-serif', 'color': 'darkblue', 'size': 15}
-        self.plot.title(f"Association of Covid Cases and {industry} industry "
+        self.plot.title(f"Association of Covid Cases and {industry_label} industry "
                         f"from {start_date} to {end_date}", **font)
         self.plot.xlabel("Year-Month")
-        self.plot.ylabel(f"COVID & {industry} industry (x1000 people)")
+        self.plot.ylabel(f"COVID & {industry_label} industry (x1000 people)")
 
         # rotate the x ticks so that they are visible
         self.plot.xticks(rotation=45)
@@ -304,7 +327,7 @@ class Visualization:
         # find the best position to plot the legend
         self.plot.legend(loc='best')
         self.plot.show()
-        print(f"Displayed the {industry} industry and COVID data relationship.")
+        print(f"Displayed the {industry_label} industry and COVID data relationship.")
 
     def display_linear_regression(self, m: float, b: float, start_end_x: tuple[float, float],
                                   color: Optional[str] = 'red') -> None:
