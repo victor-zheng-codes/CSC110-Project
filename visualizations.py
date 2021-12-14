@@ -255,7 +255,7 @@ class Visualization:
 
             m, b = linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
             self.display_linear_regression(m, b, (min(covid_numbers),
-                                           max(covid_numbers)), color=color)
+                                                  max(covid_numbers)), color=color)
 
         self.plot.legend(loc='best')
         self.plot.show()
@@ -448,7 +448,13 @@ def correlation_calculator(x_points: list[float], y_points: list[float]) -> floa
 
 if __name__ == "__main__":
     import python_ta
+    import python_ta.contracts
 
+    python_ta.contracts.DEBUG_CONTRACTS = False
+    python_ta.contracts.check_all_contracts()
+    import doctest
+
+    doctest.testmod()
     # test code for display_individual_graphs()
     v = Visualization()
     # v.display_individual_graphs("Utilities")
