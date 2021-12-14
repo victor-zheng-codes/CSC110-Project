@@ -216,8 +216,8 @@ class Visualization:
             self.plot.scatter(covid_numbers, employment_numbers, c=color, label=industry)
 
             m, b = linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
-            self.add_linear_regression_model(m, b, (min(covid_numbers),
-                                             max(covid_numbers)), color=color)
+            self.display_linear_regression(m, b, (min(covid_numbers),
+                                           max(covid_numbers)), color=color)
 
         self.plot.legend(loc='best')
         self.plot.show()
@@ -248,17 +248,23 @@ class Visualization:
         self.plot.scatter(covid_numbers, employment_numbers, c='darkblue')
 
         m, b = linear_regression_model(x_points=covid_numbers, y_points=employment_numbers)
-        self.add_linear_regression_model(m, b, (min(covid_numbers), max(covid_numbers)))
+        self.display_linear_regression(m, b, (min(covid_numbers), max(covid_numbers)))
         cor = correlation_calculator(x_points=covid_numbers, y_points=employment_numbers)
 
+        print("Individual graph button pressed...")
         print(f'Correlation of {industry} and COVID cases: ', cor)
+        print(f'Linear regression model for {industry} and COVID cases has a slope of: {m} and an '
+              f'intercept of {b}\n')
+
         self.plot.show()
 
-    def industry_covid_visualization(self, industry: str, start_date: Optional[str] = '2020-01',
-                                     end_date: Optional[str] = '2021-11') -> None:
+    def display_industry_covid_visualization(self, industry: str,
+                                             start_date: Optional[str] = '2020-01',
+                                             end_date: Optional[str] = '2021-11') -> None:
         """Display a double scatterplot showing the relationship between COVID and industry from the
         start to the end date
         """
+
         visualization_dates, employment_numbers, covid_numbers = \
             self.get_visualization_data(industry, start_date, end_date)
 
@@ -282,9 +288,10 @@ class Visualization:
         # find the best position to plot the legend
         self.plot.legend(loc='best')
         self.plot.show()
+        print(f"Displayed the {industry} and COVID data relationship...")
 
-    def add_linear_regression_model(self, m: float, b: float, start_end_x: tuple[float, float],
-                                    color: Optional[str] = 'red') -> None:
+    def display_linear_regression(self, m: float, b: float, start_end_x: tuple[float, float],
+                                  color: Optional[str] = 'red') -> None:
         """Adds a linear regression line to the graph between the two specified points"""
         start_x, end_x = start_end_x
         y_0 = m * start_x + b
