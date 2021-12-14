@@ -261,7 +261,7 @@ class Visualization:
 
         # code to visualize
         # set a window size of 10 inches by 5 inches
-        self.plot.figure(figsize=(12, 6))
+        self.plot.figure(figsize=(13, 9))
 
         # update label from input industry name to the acutal name
         industry_label = ''
@@ -301,7 +301,7 @@ class Visualization:
             self.get_visualization_data(industry, start_date, end_date)
 
         # set a window size of 10 inches by 6 inches
-        self.plot.figure(figsize=(12, 6))
+        self.plot.figure(figsize=(13, 8))
 
         # update label from input industry name to the acutal name
         industry_label = ''
