@@ -239,7 +239,7 @@ class Visual:
                         # Display the corresponding individual industry graph
                         v.display_individual_graphs(industry)
                         # Display the corresponding covid visualization graph
-                        v.industry_covid_visualization(industry)
+                        v.display_industry_covid_visualization(industry)
 
             # Draws text using the draw_text function
             self.draw_text(self.screen,
