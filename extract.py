@@ -2,8 +2,8 @@
 
 File Description
 ===============================
-This file contains the classes responsible for extracting and transforming data from the filtered
-csv files to their corresponding data classes.
+This file contains the Employed class, responsible for extracting and transforming data
+from the filtered csv files to their corresponding data classes.
 
 Copyright and Usage Information
 ===============================

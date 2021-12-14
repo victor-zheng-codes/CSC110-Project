@@ -1,6 +1,19 @@
-"""Filter covid data from the original dataset covid_data.csv and produce a new file called
-filtered_covid_cases.csv data with the date and the number of cases"""
+"""CSC110 Fall 2021 Final Project Data Filter
 
+File Description
+===============================
+This file contains the classes responsible for filtering and storing the data into their
+corresponding data classes
+
+Copyright and Usage Information
+===============================
+This file is provided solely for the personal and private use of students, TA, and professors
+within the CSC110 at the University of Toronto St. George campus. All forms of
+distribution of this code, whether as given or with any changes, are
+expressly prohibited.
+
+This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
+"""
 import csv
 
 
@@ -118,6 +131,7 @@ if __name__ == '__main__':
     import python_ta.contracts
 
     import doctest
+
     doctest.testmod()
 
     python_ta.contracts.DEBUG_CONTRACTS = False
