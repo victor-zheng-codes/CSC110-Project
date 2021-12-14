@@ -1,4 +1,20 @@
-"""File to visualize code through matplotlib"""
+"""CSC110 Fall 2021 Final Project visualizations
+
+File Description
+===============================
+This file contains the Visualization Class for our final project in CSC110. It performs all of the
+computations on our data and turn them into graphs using matplotlib which can then be displayed
+through visual.py
+
+Copyright and Usage Information
+===============================
+This file is provided solely for the personal and private use of students, TA, and professors
+within the CSC110 at the University of Toronto St. George campus. All forms of
+distribution of this code, whether as given or with any changes, are
+expressly prohibited.
+
+This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
+"""
 from typing import Optional
 
 import matplotlib.pyplot as plt
