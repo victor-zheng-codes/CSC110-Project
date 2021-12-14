@@ -68,6 +68,7 @@ class Visualization:
     def get_benefited_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (positive)
         """
+        print("Benefited industries button pressed...")
 
         industries = []
         for employment_d in self.employment_data:
@@ -86,14 +87,17 @@ class Visualization:
         top_scores = []
         for _ in range(5):
             industry = max(industry_employment_slopes, key=industry_employment_slopes.get)
-            industry_employment_slopes.pop(industry)
+            slope = industry_employment_slopes.pop(industry)
+            print(f'{industry} industry\'s slope is {slope}')
             top_scores.append(industry)
 
+        print('')
         return top_scores
 
     def get_struggling_industries(self) -> list[str]:
         """Returns the five industries with the steepest linear regression slopes (negative)
         """
+        print("Struggling industries button pressed...")
         industries = []
         for employment_d in self.employment_data:
             # skip over the total industries b/c they don't count as an industry
@@ -103,22 +107,28 @@ class Visualization:
                 industries.append(striped_industries.split()[0])
 
         industry_employment_slopes = {}
+
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
             m, _ = linear_regression_model(c_nums, e_nums)
+
             industry_employment_slopes[industry] = m
 
         lowest_scores = []
         for _ in range(5):
             industry = min(industry_employment_slopes, key=industry_employment_slopes.get)
-            industry_employment_slopes.pop(industry)
+            slope = industry_employment_slopes.pop(industry)
+            print(f'{industry} industry\'s slope is {slope}')
             lowest_scores.append(industry)
 
+        print('')
         return lowest_scores
 
     def get_best_association(self) -> list[str]:
         """Returns the 5 industries with the highest correlations (cor closest to
         plus or minus 1)"""
+        # display into console
+        print("Most positive correlation button pressed...")
 
         industries = []
         for employment_d in self.employment_data:
@@ -143,14 +153,19 @@ class Visualization:
             # use the key tool to get the iterable
             industry = max(industry_correlations, key=industry_correlations.get)
             # remove the highest score from the dictionary
-            industry_correlations.pop(industry)
+            score = industry_correlations.pop(industry)
+            print(f'{industry} industry\'s correlation is {score}')
             # append the name of the highest score into the dictionary
             highest_cor.append(industry)
 
+        print('')
         return highest_cor
 
     def get_worst_association(self) -> list[str]:
         """Returns the 5 industries with the smallest correlations (cor closest to zero)"""
+        # display results into console for viewing
+        print("Most negative correlation button pressed...")
+
         industries = []
         for employment_d in self.employment_data:
             if 'Total' not in employment_d.industry:
@@ -165,17 +180,18 @@ class Visualization:
             industry_correlations[industry] = cor
 
         # print(industry_correlations)
-
         # calculate the 5 lowest correlations in the dictionary
         lowest_correlations = []
         for _ in range(5):
             # use the key tool to get the iterable
             industry = min(industry_correlations, key=industry_correlations.get)
             # remove the highest score from the dictionary
-            industry_correlations.pop(industry)
+            score = industry_correlations.pop(industry)
+            print(f'{industry} industry\'s correlation is {score}')
             # append the name of the highest score into the dictionary
             lowest_correlations.append(industry)
 
+        print('')
         return lowest_correlations
 
     def display_multiple_associations(self, industries: list[str], criteria: str) -> None:
