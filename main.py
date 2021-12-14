@@ -1,5 +1,11 @@
 """CSC110 Fall 2021 Final Project Main Program
 
+File Description
+===============================
+This file contains the code to run the graphical user interface that the user can interact with
+to display our computations.
+
+
 Instructions (READ THIS FIRST!)
 ===============================
 Run this file to run the program
@@ -19,7 +25,7 @@ This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and V
 if __name__ == '__main__':
     import filter
     from visual import Visual
-    #filter.filter_covid()
+    filter.filter_covid()
     filter.filter_employment_data()
     program = Visual()
     program.start_menu()
