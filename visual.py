@@ -45,7 +45,6 @@ class Visual:
     virus_pic: pygame.image
     virus_rect: pygame.Rect
     font_name: str
-    sound_effect: str
 
     buttons: dict[str, Button]
 
@@ -65,9 +64,9 @@ class Visual:
 
         # Set the sound effect
         # https://www.fiftysounds.com
-        self.sound_effect = 'sfx-pop.mp3'
+        sound_effect = 'sfx-pop.mp3'
         # Load sound
-        pygame.mixer.music.load(self.sound_effect)
+        pygame.mixer.music.load(sound_effect)
         # Set the sound volume
         pygame.mixer.music.set_volume(0.1)
 
