@@ -108,6 +108,9 @@ if __name__ == '__main__':
     import python_ta
     import python_ta.contracts
 
+    import doctest
+    doctest.testmod()
+
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
 

@@ -452,8 +452,8 @@ if __name__ == "__main__":
 
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
-    import doctest
 
+    import doctest
     doctest.testmod()
     # test code for display_individual_graphs()
     v = Visualization()
