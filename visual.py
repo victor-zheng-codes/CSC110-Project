@@ -56,7 +56,7 @@ class Visual:
         # Set the font
         self.font_name = "project_font.ttf"
         # Initialize the dimension for the screen as (width, height)
-        self.dimension = (1600, 1000)
+        self.dimension = (1500, 800)
         # Assigns the variables w, h to the elements in dimension
         w, h = self.dimension
         # Initialize a screen for display
@@ -93,30 +93,30 @@ class Visual:
 
         # A dictionary mapping button names to their dimension and position
         self.buttons = {'back': Button((100, 50), (50, 25)),
-                        'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
-                        'all': Button((500, 150), (w // 2 - 50, h // 2 + 210)),
+                        'individual': Button((400, 125), (w // 2 - 50, h // 2 + 50)),
+                        'all': Button((400, 125), (w // 2 - 50, h // 2 + 210)),
 
-                        'Total': Button((small_button_width, 100), (c1_x, h // 5)),
-                        'Goods-producing': Button((small_button_width, 100), (c1_x, h // 5 + 125)),
-                        'Agriculture': Button((small_button_width, 100), (c1_x, h // 5 + 250)),
-                        'Forestry': Button((small_button_width, 100), (c1_x, h // 5 + 375)),
-                        'Utilities': Button((small_button_width, 100), (c1_x, h // 5 + 500)),
-                        'Construction': Button((small_button_width, 100), (c1_x, h // 5 + 625)),
+                        'Total': Button((small_button_width, 80), (c1_x, h // 5)),
+                        'Goods-producing': Button((small_button_width, 80), (c1_x, h // 5 + 100)),
+                        'Agriculture': Button((small_button_width, 80), (c1_x, h // 5 + 200)),
+                        'Forestry': Button((small_button_width, 80), (c1_x, h // 5 + 300)),
+                        'Utilities': Button((small_button_width, 80), (c1_x, h // 5 + 400)),
+                        'Construction': Button((small_button_width, 80), (c1_x, h // 5 + 500)),
 
-                        'Manufacturing': Button((small_button_width, 100), (c2_x, h // 5)),
+                        'Manufacturing': Button((small_button_width, 80), (c2_x, h // 5)),
                         'Services-producing':
-                            Button((small_button_width, 100), (c2_x, h // 5 + 125)),
-                        'Wholesale': Button((small_button_width, 100), (c2_x, h // 5 + 250)),
-                        'Transportation': Button((small_button_width, 100), (c2_x, h // 5 + 375)),
-                        'Finance': Button((small_button_width, 100), (c2_x, h // 5 + 500)),
-                        'Professional': Button((small_button_width, 100), (c2_x, h // 5 + 625)),
+                            Button((small_button_width, 80), (c2_x, h // 5 + 100)),
+                        'Wholesale': Button((small_button_width, 80), (c2_x, h // 5 + 200)),
+                        'Transportation': Button((small_button_width, 80), (c2_x, h // 5 + 300)),
+                        'Finance': Button((small_button_width, 80), (c2_x, h // 5 + 400)),
+                        'Professional': Button((small_button_width, 80), (c2_x, h // 5 + 500)),
 
-                        'Business': Button((small_button_width, 100), (c3_x, h // 5)),
-                        'Educational': Button((small_button_width, 100), (c3_x, h // 5 + 125)),
-                        'Health': Button((small_button_width, 100), (c3_x, h // 5 + 250)),
-                        'Information': Button((small_button_width, 100), (c3_x, h // 5 + 375)),
-                        'Accommodation': Button((small_button_width, 100), (c3_x, h // 5 + 500)),
-                        'Other': Button((small_button_width, 100), (c3_x, h // 5 + 625)),
+                        'Business': Button((small_button_width, 80), (c3_x, h // 5)),
+                        'Educational': Button((small_button_width, 80), (c3_x, h // 5 + 100)),
+                        'Health': Button((small_button_width, 80), (c3_x, h // 5 + 200)),
+                        'Information': Button((small_button_width, 80), (c3_x, h // 5 + 300)),
+                        'Accommodation': Button((small_button_width, 80), (c3_x, h // 5 + 400)),
+                        'Other': Button((small_button_width, 80), (c3_x, h // 5 + 500)),
 
                         'Top Benefit': Button((500, 150), (w // 3 - 50, h // 2 + 50)),
                         'Top Suffer': Button((500, 150), (w // 3 - 50, h // 2 + 250)),
@@ -181,15 +181,15 @@ class Visual:
             self.screen.blit(self.virus_pic, self.virus_rect)
             # Draws text using the draw_text function
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment',
-                           50, (w // 2, h // 4))
+                           40, (w // 2, h // 4))
             self.draw_text(self.screen, 'How does  the  pandemic  impact  employment  in  Ontario?',
-                           40, (w // 2, h // 3))
+                           30, (w // 2, h // 3))
             self.draw_text(self.screen,
                            'Are  there  certain  industries  that  suffered or '
-                           'benefited more than others?', 40, (w // 2, h // 3 + 50))
+                           'benefited more than others?', 30, (w // 2, h // 3 + 50))
             # Draws buttons
-            self.buttons['individual'].draw(self.screen, "Individual Comparisons", 35)
-            self.buttons['all'].draw(self.screen, "All Comparisons", 35)
+            self.buttons['individual'].draw(self.screen, "Individual Comparisons", 30)
+            self.buttons['all'].draw(self.screen, "All Comparisons", 30)
 
             # Sets the speed of the virus.png
             self.virus_rect.x += x_velocity
