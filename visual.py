@@ -64,6 +64,7 @@ class Visual:
         self.screen = pygame.display.set_mode((w, h))
 
         # Set the sound effect
+        # https://www.fiftysounds.com
         self.sound_effect = 'sfx-pop.mp3'
         # Load sound
         pygame.mixer.music.load(self.sound_effect)
