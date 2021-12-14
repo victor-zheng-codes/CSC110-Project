@@ -5,7 +5,9 @@ import csv
 
 
 def filter_covid() -> None:
-    """To do
+    """Filter covid data from the original dataset covid_data.csv and produce a new
+    file with the filtered data called filtered_covid_data.csv containing the date in year
+    and month, and the number of covid cases.
     """
     filtered_data = {}
     # read the covid_data.csv file. This file is too large to submit or put onto GitHub.
@@ -38,7 +40,8 @@ def filter_covid() -> None:
 def filter_employment_data() -> None:
     """Filter employment data from the original dataset employment_data.csv and produce a new
     file with the filtered data called filtered_employment_data.csv containing the industry and
-    number of employed per month"""
+    number of employed per month.
+    """
 
     row_list = []
 
