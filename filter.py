@@ -117,6 +117,9 @@ if __name__ == '__main__':
     import python_ta
     import python_ta.contracts
 
+    import doctest
+    doctest.testmod()
+
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
 
@@ -124,5 +127,5 @@ if __name__ == '__main__':
         'allowed-io': ['filter_covid', 'filter_employment_data, convert_date_format'],
         'extra-imports': ['python_ta.contracts', 'csv'],
         'max-line-length': 100,
-        'disable': ['R1705', 'C0200']
+        'disable': ['R1705', 'C0200', 'E9998']
     })
