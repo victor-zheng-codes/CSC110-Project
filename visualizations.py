@@ -133,7 +133,7 @@ class Visualization:
             cor = correlation_calculator(c_nums, e_nums)
             # get the absolute value because we are looking for highest association, which could
             # be negative or positive
-            industry_correlations[industry] = abs(cor)
+            industry_correlations[industry] = cor
 
         # print(industry_correlations)
 
@@ -162,7 +162,7 @@ class Visualization:
         for industry in industries:
             _, e_nums, c_nums = self.get_visualization_data(industry)
             cor = correlation_calculator(c_nums, e_nums)
-            industry_correlations[industry] = abs(cor)
+            industry_correlations[industry] = cor
 
         # print(industry_correlations)
 
