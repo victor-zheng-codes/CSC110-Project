@@ -45,6 +45,7 @@ class Visual:
     virus_pic: pygame.image
     virus_rect: pygame.Rect
     font_name: str
+    sound_effect: str
 
     buttons: dict[str, Button]
 
@@ -61,6 +62,13 @@ class Visual:
         w, h = self.dimension
         # Initialize a screen for display
         self.screen = pygame.display.set_mode((w, h))
+
+        # Set the sound effect
+        self.sound_effect = 'sfx-pop.mp3'
+        # Load sound
+        pygame.mixer.music.load(self.sound_effect)
+        # Set the sound volume
+        pygame.mixer.music.set_volume(0.1)
 
         # Set the display window caption as 'CO(VISION)'
         pygame.display.set_caption('CO(VISION)')
@@ -162,9 +170,11 @@ class Visual:
                 # Tracks if the mouse clicks on the Individual Comparisons button
                 if self.buttons['individual'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     self.individual()
                 # Tracks if the mouse clicks on the All Comparisons button
                 if self.buttons['all'].mouse_hover(mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     self.all()
 
             # Draws the virus.png onto the screen
@@ -188,12 +198,16 @@ class Visual:
             # Changes image direction if the image bumps into the border of the screen
             if self.virus_rect.x + self.virus_rect.w > w:
                 x_velocity = -x_velocity
+                pygame.mixer.music.play()
             if self.virus_rect.x < 0:
                 x_velocity = -x_velocity
+                pygame.mixer.music.play()
             if self.virus_rect.y + self.virus_rect.h > h:
                 y_velocity = -y_velocity
+                pygame.mixer.music.play()
             if self.virus_rect.y < 0:
                 y_velocity = -y_velocity
+                pygame.mixer.music.play()
 
             # Refreshes the display
             pygame.display.update()
@@ -222,6 +236,7 @@ class Visual:
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     # Brings the user to the start_menu function
+                    pygame.mixer.music.play()
                     self.start_menu()
 
                 # Assign industries to a list of button names
@@ -234,6 +249,7 @@ class Visual:
                     # Tracks if the mouse clicks on a specific industry button
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
+                        pygame.mixer.music.play()
                         # Assign the Visualization class to v
                         v = Visualization()
                         # Display the corresponding individual industry graph
@@ -314,12 +330,14 @@ class Visual:
                 # Tracks if the mouse clicks on the Back button
                 if self.buttons['back'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     # Brings the user to the start_menu function
                     self.start_menu()
 
                 # Tracks if the mouse clicks on the Top Benefit button
                 if self.buttons['Top Benefit'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     # Assign association to get_benefited_industries function in the
                     # visualization class
                     association = v.get_benefited_industries()
@@ -330,6 +348,7 @@ class Visual:
                 # Tracks if the mouse clicks on the Top Suffer button
                 if self.buttons['Top Suffer'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     # Assign association to get_struggling_industries function in the
                     # visualization class
                     association = v.get_struggling_industries()
@@ -340,6 +359,7 @@ class Visual:
                 # Tracks if the mouse clicks on the Top Strong button
                 if self.buttons['Top Positive'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     # Assign association to get_best_association function in the
                     # visualization class
                     association = v.get_best_association()
@@ -349,6 +369,7 @@ class Visual:
                 # Tracks if the mouse clicks on the Top Weak button
                 if self.buttons['Top Negative'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame.mixer.music.play()
                     # Assign association to get_worst_association function in the
                     # visualization class
                     association = v.get_worst_association()

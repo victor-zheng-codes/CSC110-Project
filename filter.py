@@ -10,7 +10,7 @@ def filter_covid() -> None:
     and month, and the number of covid cases.
     """
     filtered_data = {}
-    # read the covid_data.csv file. This file is too large to submit or put onto GitHub.
+    # read the covid_data.csv file.
     with open('covid_data.csv') as csv_file:
         # read through each line in covid_data.csv
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -40,7 +40,7 @@ def filter_covid() -> None:
 def filter_employment_data() -> None:
     """Filter employment data from the original dataset employment_data.csv and produce a new
     file with the filtered data called filtered_employment_data.csv containing the industry and
-    number of employed per month.
+    number of employed per month
     """
 
     row_list = []
