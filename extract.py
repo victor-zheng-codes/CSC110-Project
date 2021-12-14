@@ -46,7 +46,8 @@ class CovidData:
     Instance Attributes:
         - date: the date formatted as a string (e.g., '2020-03') that corresponds to the number of \
         cases during that month
-        - cases: the number of cases as an integer representing the number of cases during that month
+        - cases: the number of cases as an integer representing the number of cases during that
+        month
 
     Representation Invariants:
       - len(self.data) == 7
