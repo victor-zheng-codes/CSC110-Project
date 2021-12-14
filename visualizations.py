@@ -288,7 +288,7 @@ class Visualization:
         # find the best position to plot the legend
         self.plot.legend(loc='best')
         self.plot.show()
-        print(f"Displayed the {industry} and COVID data relationship...")
+        print(f"Displayed the {industry} industry and COVID data relationship.")
 
     def display_linear_regression(self, m: float, b: float, start_end_x: tuple[float, float],
                                   color: Optional[str] = 'red') -> None:
