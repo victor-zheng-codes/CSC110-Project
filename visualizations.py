@@ -85,9 +85,9 @@ class Visualization:
 
         top_scores = []
         for _ in range(5):
-            highest_score = max(industry_employment_slopes, key=industry_employment_slopes.get)
-            industry_employment_slopes.pop(highest_score)
-            top_scores.append(highest_score)
+            industry = max(industry_employment_slopes, key=industry_employment_slopes.get)
+            industry_employment_slopes.pop(industry)
+            top_scores.append(industry)
 
         return top_scores
 
@@ -110,9 +110,9 @@ class Visualization:
 
         lowest_scores = []
         for _ in range(5):
-            highest_score = min(industry_employment_slopes, key=industry_employment_slopes.get)
-            industry_employment_slopes.pop(highest_score)
-            lowest_scores.append(highest_score)
+            industry = min(industry_employment_slopes, key=industry_employment_slopes.get)
+            industry_employment_slopes.pop(industry)
+            lowest_scores.append(industry)
 
         return lowest_scores
 
@@ -141,11 +141,11 @@ class Visualization:
         highest_cor = []
         for _ in range(5):
             # use the key tool to get the iterable
-            highest_score = max(industry_correlations, key=industry_correlations.get)
+            industry = max(industry_correlations, key=industry_correlations.get)
             # remove the highest score from the dictionary
-            industry_correlations.pop(highest_score)
+            industry_correlations.pop(industry)
             # append the name of the highest score into the dictionary
-            highest_cor.append(highest_score)
+            highest_cor.append(industry)
 
         return highest_cor
 
@@ -170,11 +170,11 @@ class Visualization:
         lowest_correlations = []
         for _ in range(5):
             # use the key tool to get the iterable
-            highest_score = min(industry_correlations, key=industry_correlations.get)
+            industry = min(industry_correlations, key=industry_correlations.get)
             # remove the highest score from the dictionary
-            industry_correlations.pop(highest_score)
+            industry_correlations.pop(industry)
             # append the name of the highest score into the dictionary
-            lowest_correlations.append(highest_score)
+            lowest_correlations.append(industry)
 
         return lowest_correlations
 
