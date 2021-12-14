@@ -1,4 +1,4 @@
-"""CSC110 Fall 2021 Final Project
+"""CSC110 Fall 2021 Final Project Main Program
 
 Instructions (READ THIS FIRST!)
 ===============================

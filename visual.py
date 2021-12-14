@@ -2,8 +2,8 @@
 
 File Description
 ===============================
-This file contains the Visual Class for our final project in CSC110. It visualizes our computations
-and uses pygame to create an interactive pygame application to access information on our data.
+This file contains the Visual Class for our final project in CSC110. It uses pygame to create an
+graphical user interface that the user can interact with to display our computations.
 
 Copyright and Usage Information
 ===============================
@@ -14,6 +14,7 @@ expressly prohibited.
 
 This file is Copyright (c) 2021 Daniel Xu, Nicole Leung, Kirsten Sutantyo, and Victor Zheng.
 """
+
 import sys
 import random
 import pygame
@@ -23,7 +24,7 @@ from button import Button
 
 
 class Visual:
-    """Class to visualize the product of our computation to interact and utilize.
+    """A class for the graphical user interface.
 
     Instance Attributes:
         - dimension: the dimension of the screen in (width, height)
@@ -50,9 +51,9 @@ class Visual:
     def __init__(self) -> None:
         """Initializes the Visual class and its variables, and starts up the program.
         """
-        # Initialize all imported pygame modules
+        # Initialize pygame
         pygame.init()
-        # Initialize the font
+        # Set the font
         self.font_name = "project_font.ttf"
         # Initialize the dimension for the screen as (width, height)
         self.dimension = (1600, 1000)
@@ -65,11 +66,11 @@ class Visual:
         pygame.display.set_caption('CO(VISION)')
         # Initializes an object to track time
         self.clock = pygame.time.Clock()
-        # http://resources.finalsite.net/images/v1603987533/ellensburg/ixbajjxlqntul6ymrofc/COVID.jpg
+        # https://www.statnews.com/wp-content/uploads/2020/02/Coronavirus-CDC.jpg
         # Set the caption image for the display window
         pygame.display.set_icon(pygame.image.load('COVID.jpg'))
         # Loads the image of our virus.png
-        self.virus_pic = pygame.image.load('virus.png')
+        self.virus_pic = pygame.image.load('COVID.jpg')
         # Gets the rectangular area of the image
         self.virus_rect = self.virus_pic.get_rect()
 
@@ -82,7 +83,7 @@ class Visual:
         # Initialize column_3's x position
         c3_x = w // 2 + w // 4 + 50
 
-        # Dimension and position of each button on the screen
+        # A dictionary mapping button names to their dimension and position
         self.buttons = {'back': Button((100, 50), (50, 25)),
                         'individual': Button((500, 150), (w // 2 - 50, h // 2 + 50)),
                         'all': Button((500, 150), (w // 2 - 50, h // 2 + 210)),
@@ -117,7 +118,7 @@ class Visual:
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
                   dimension: tuple[int, int]) -> None:
-        """Draw the text onto a display
+        """Draw the text onto the screen
 
         Preconditions:
             - size > 0
@@ -135,11 +136,12 @@ class Visual:
         surface.blit(text_surface, text_rect)
 
     def start_menu(self) -> None:
-        """The main menu of the program. Front page of the user interface.
+        """The start menu of the program. Front page of the user interface. Displays all of the
+        necessary graphics onto the screen and handles user actions.
         """
         # Assigns width, height to elements of the dimension
         w, h = self.dimension
-        # Image spawns at a random position on the screen
+        # Image spawns at a random position on the top left of the screen
         self.virus_rect.topleft = (random.randint(0, w // 2), random.randint(0, h // 2))
         # Select a random x velocity
         x_velocity = random.choice([-10, 10])
@@ -149,7 +151,7 @@ class Visual:
         while True:
             # Fills the screen with a white background
             self.screen.fill((255, 255, 255))
-            # Get the mouse cursor position
+            # Get the mouse position
             mouse = pygame.mouse.get_pos()
             # Get events
             for event in pygame.event.get():
@@ -199,9 +201,8 @@ class Visual:
             self.clock.tick(50)
 
     def individual(self) -> None:
-        """The page for Impact on Individual Industries. Displays the 18 interactive buttons for
-        different graphs, related to individual graphs of COVID and industry relationship with
-        linear regression.
+        """The page for Impact on Individual Industries. Display the 18 interactive buttons that
+        opens up graphs that shows our computation on each of the individual industries.
         """
         # Assigns width, height to elements of the dimension
         w, h = self.dimension
@@ -223,27 +224,22 @@ class Visual:
                     # Brings the user to the start_menu function
                     self.start_menu()
 
-                # Assign industries to a list of industries, corresponding to our data
+                # Assign industries to a list of button names
                 industries = ['Total', 'Goods-producing', 'Agriculture', 'Forestry', 'Utilities',
                               'Construction', 'Manufacturing', 'Services-producing', 'Wholesale',
                               'Transportation', 'Finance', 'Professional', 'Business',
                               'Educational', 'Health', 'Information', 'Accommodation',
                               'Other']
                 for industry in industries:
-                    # Tracks if the mouse clicks on an Industry button
+                    # Tracks if the mouse clicks on a specific industry button
                     if self.buttons[industry].mouse_hover(
                             mouse) and event.type == pygame.MOUSEBUTTONDOWN:
-                        # print("Begin Run")
                         # Assign the Visualization class to v
                         v = Visualization()
                         # Display the corresponding individual industry graph
                         v.display_individual_graphs(industry)
                         # Display the corresponding covid visualization graph
                         v.industry_covid_visualization(industry)
-                        # plt.plot([1, 2, 3, 4])
-                        # plt.ylabel('some numbers')
-                        # plt.show()
-                        # print("Ran Successfully")
 
             # Draws text using the draw_text function
             self.draw_text(self.screen,
@@ -394,6 +390,6 @@ if __name__ == '__main__':
         'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys', 'random',
                           'visualizations'],
         'max-line-length': 100,
-        'disable': ['R1705', 'C0200'],
+        'disable': ['R1705', 'C0200', 'R1702'],
         'generated-members': ['pygame.*']
     })
