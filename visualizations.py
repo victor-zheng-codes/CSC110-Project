@@ -294,14 +294,14 @@ class Visualization:
 
         print("Individual graph button pressed...")
         print(f'Correlation of {industry_label} industry and COVID cases: ', cor)
-        print(f'The Linear regression model for {industry_label} industry and COVID cases has a slope of: {m} and an '
-              f'intercept of {b}\n')
+        print(f'The Linear regression model for {industry_label} industry and COVID cases has a '
+              f'slope of: {m} and an intercept of {b}\n')
 
         self.plot.show()
 
-    def display_industry_covid_visualization(self, industry: str,
-                                             start_date: Optional[str] = '2020-01',
-                                             end_date: Optional[str] = '2021-11') -> None:
+    def display_industry_covid(self, industry: str,
+                               start_date: Optional[str] = '2020-01',
+                               end_date: Optional[str] = '2021-11') -> None:
         """Display a double scatterplot showing the relationship between COVID and industry from the
         start to the end date
         """
@@ -328,10 +328,11 @@ class Visualization:
                           c='darkgreen',
                           label='Employment')
         self.plot.scatter(visualization_dates, covid_numbers, c='darkblue', label='Covid Cases')
+        print(f"Displayed the {industry_label} industry and COVID data relationship.")
+
         # find the best position to plot the legend
         self.plot.legend(loc='best')
         self.plot.show()
-        print(f"Displayed the {industry_label} industry and COVID data relationship.")
 
     def display_linear_regression(self, m: float, b: float, start_end_x: tuple[float, float],
                                   color: Optional[str] = 'red') -> None:
@@ -458,7 +459,9 @@ if __name__ == "__main__":
 
     python_ta.check_all(config={
         'allowed-io': ['industry_covid_visualization', 'display_individual_graphs',
-                       'get_best_association', 'get_worst_association'],
+                       'get_best_association', 'get_worst_association', 'get_benefited_industries',
+                       'get_struggling_industries', 'get_best_association', 'get_worst_association',
+                       'display_industry_covid'],
         'extra-imports': ['matplotlib.pyplot', 'extract'],
         'max-line-length': 100,
         'disable': ['R1705', 'C0200']
