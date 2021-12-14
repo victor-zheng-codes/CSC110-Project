@@ -112,8 +112,8 @@ class Visual:
 
                         'Top Benefit': Button((500, 150), (w // 3 - 50, h // 2 + 50)),
                         'Top Suffer': Button((500, 150), (w // 3 - 50, h // 2 + 250)),
-                        'Top Strong': Button((500, 150), (w - w // 3 + 50, h // 2 + 50)),
-                        'Top Weak': Button((500, 150), (w - w // 3 + 50, h // 2 + 250))
+                        'Top Positive': Button((500, 150), (w - w // 3 + 50, h // 2 + 50)),
+                        'Top Negative': Button((500, 150), (w - w // 3 + 50, h // 2 + 250))
                         }
 
     def draw_text(self, surface: pygame.display, text: str, size: int,
@@ -338,22 +338,22 @@ class Visual:
                     v.display_multiple_associations(association, criteria="Suffered")
 
                 # Tracks if the mouse clicks on the Top Strong button
-                if self.buttons['Top Strong'].mouse_hover(mouse) and \
+                if self.buttons['Top Positive'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     # Assign association to get_best_association function in the
                     # visualization class
                     association = v.get_best_association()
                     # Displays the graph of 5 industries with the highest correlations
-                    v.display_multiple_associations(association, criteria="Strong correlations")
+                    v.display_multiple_associations(association, criteria="Positive correlations")
 
                 # Tracks if the mouse clicks on the Top Weak button
-                if self.buttons['Top Weak'].mouse_hover(mouse) and \
+                if self.buttons['Top Negative'].mouse_hover(mouse) and \
                         event.type == pygame.MOUSEBUTTONDOWN:
                     # Assign association to get_worst_association function in the
                     # visualization class
                     association = v.get_worst_association()
                     # Displays the graph of 5 industries with the smallest correlations
-                    v.display_multiple_associations(association, criteria="Weak correlations")
+                    v.display_multiple_associations(association, criteria="Negative correlations")
 
             # Draws text using the draw_text function
             self.draw_text(self.screen, 'CO(VISION): COVID-19’s Impact on employment ',
@@ -366,10 +366,10 @@ class Visual:
                                                           "COVID", 20)
             self.buttons['Top Suffer'].draw(self.screen, "Top 5 Industries that suffered from"
                                                          " COVID", 20)
-            self.buttons['Top Strong'].draw(self.screen, "Top 5 industries with strong "
-                                                         "correlations", 20)
-            self.buttons['Top Weak'].draw(self.screen, "Top 5 industries with weak "
-                                                       "correlations", 20)
+            self.buttons['Top Positive'].draw(self.screen, "Top 5 industries with positive "
+                                                           "correlations", 20)
+            self.buttons['Top Negative'].draw(self.screen, "Top 5 industries with negative "
+                                                           "correlations", 20)
             self.buttons['back'].draw(self.screen, "Back", 20)
 
             # Refreshes the display
