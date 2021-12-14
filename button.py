@@ -127,6 +127,9 @@ if __name__ == '__main__':
     python_ta.contracts.DEBUG_CONTRACTS = False
     python_ta.contracts.check_all_contracts()
 
+    import doctest
+    doctest.testmod()
+
     python_ta.check_all(config={
         'allowed-io': ['run_example'],
         'extra-imports': ['python_ta.contracts', 'pygame', 'button', 'sys'],
